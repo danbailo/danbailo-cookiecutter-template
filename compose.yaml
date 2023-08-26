@@ -27,6 +27,6 @@ services:
     command: bash -c "
       cd src &&
       python main.py execute --option ${MY_VAR}"
-    container_name: flake8-container
+    container_name: app-container
     env_file:
       - compose.env
