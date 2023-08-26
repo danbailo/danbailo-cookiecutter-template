@@ -605,7 +605,7 @@ additional-builtins=
 allow-global-unused-variables=yes
 
 # List of names allowed to shadow builtins
-allowed-redefined-builtins=
+allowed-redefined-builtins=id
 
 # List of strings which can identify a callback function by name. A callback
 # name must start or end with one of those strings.
@@ -617,7 +617,7 @@ callbacks=cb_,
 dummy-variables-rgx=_$|dummy
 
 # Argument names that match this expression will be ignored.
-ignored-argument-names=_.*
+ignored-argument-names=_.*|args|kwargs|request|field|err|exc|element|compiler|api|app
 
 # Tells whether we should check for unused import in __init__ files.
 init-import=no

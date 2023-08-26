@@ -2,7 +2,8 @@ FROM python:3.11.3-slim-bullseye
 
 WORKDIR /app
 
-COPY ./resources ./resources
+COPY ./pylintrc ./pylintrc
+COPY ./.flake8 ./.flake8
 
 COPY ./src ./src
 
