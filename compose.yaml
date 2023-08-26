@@ -18,3 +18,15 @@ services:
     container_name: flake8-container
     env_file:
       - compose.env
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: my-project-image
+    command: bash -c "
+      cd src &&
+      python main.py execute --option ${MY_VAR}"
+    container_name: flake8-container
+    env_file:
+      - compose.env
