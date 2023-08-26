@@ -1,0 +1,4 @@
+ipdb==0.13.13
+python-dotenv==1.0.0
+pylint==2.17.5
+flake8==6.1.0
