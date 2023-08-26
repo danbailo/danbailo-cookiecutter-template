@@ -45,3 +45,17 @@ src
 cd src
 python -m commands
 ```
+
+### Python dotenv
+
+Running project with `dotenv run python ...` to load external enviroment at runtime.
+
+By default, will load `.env` at current path, but you can load more than one enviroments.
+
+```bash
+dotenv -f .env-foo run python ...
+```
+
+Suggest enviroment variable `PYTHONBREAKPOINT=ipdb.set_trace`
+
+After install `ipdb` package, you can debug files with ipython when call `breakpoint()` in your code.
