@@ -24,3 +24,24 @@ docker compose --env-file=compose.env run <service-name>
 ```bash
 docker compose --env-file=compose.env up
 ```
+
+### `__main__.py` module
+
+A nice thing implemented in Python v3.11 it's the [`__main__.py`](https://docs.python.org/3/library/__main__.html#main-py-in-python-packages) file.
+
+You can implement a module with `__main.py__` inside it and call it directly.
+
+Example
+
+```
+src
+  commands
+    ├── __init__.py
+    └── __main__.py
+```
+
+
+```bash
+cd src
+python -m commands
+```
