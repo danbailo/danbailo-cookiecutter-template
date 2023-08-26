@@ -1,6 +1,6 @@
 ## Template Project
 
-Simple structure that I(@danbailo) like to build projects.
+Simple structure that I([@danbailo](https://github.com/danbailo)) like use to build projects.
 
 enjoy and... Python 🐍 for everthing :)
 
