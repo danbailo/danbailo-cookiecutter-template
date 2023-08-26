@@ -3,7 +3,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.test
-    image: my-project
+    image: my-test-image
     command: bash -c "python -m pylint src"
     container_name: pylint-container
     env_file:
@@ -13,7 +13,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.test
-    image: my-project
+    image: my-test-image
     command: bash -c "python -m flake8 src"
     container_name: flake8-container
     env_file:
