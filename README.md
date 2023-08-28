@@ -15,11 +15,20 @@ docker compose --env-file=compose.env down --remove-orphans
 docker compose --env-file=compose.env build
 ```
 
-then
+- To run specific service
 
 ```bash
 docker compose --env-file=compose.env run <service-name>
 ```
+
+or
+
+```bash
+docker compose --env-file=compose.env create <service-name>
+docker start <container-service-name>
+```
+
+- To run all services
 
 ```bash
 docker compose --env-file=compose.env up
