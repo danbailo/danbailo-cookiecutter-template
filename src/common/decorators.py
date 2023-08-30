@@ -7,6 +7,13 @@ import time
 from .logger import logger
 
 
+def coro(f):
+    @wraps(f)
+    def wrapper(*args, **kwargs):
+        return asyncio.run(f(*args, **kwargs))
+    return wrapper
+
+
 def async_timeit(f):
     @wraps(f)
     def _async_timeit(*args, **kwargs):
