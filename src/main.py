@@ -7,10 +7,11 @@ import os
 import typer
 
 from common.logger import logger
+from common.decorators import coro
 
 app = typer.Typer()
 
-logger.info(f'my environ var: {os.environ.get("MY_ENVIROMENT_VARIABLE")}')
+logger.info('my environ var: %s', os.environ.get("MY_ENVIROMENT_VARIABLE"))
 
 
 @app.callback()
@@ -25,8 +26,8 @@ def coro(f):
     return wrapper
 
 
-@coro
 @app.command()
+@coro
 def async_execute(option: str = typer.Option()):
     logger.info(f'option: {option}')
     
