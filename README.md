@@ -1,4 +1,4 @@
-## Template Project
+# Template Project
 
 Simple structure that I([@danbailo](https://github.com/danbailo)) like use to build projects.
 
