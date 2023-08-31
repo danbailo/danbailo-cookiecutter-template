@@ -25,7 +25,6 @@ services:
       dockerfile: Dockerfile
     image: my-project-image
     command: bash -c "
-      cd src &&
       python main.py execute --option ${MY_VAR}"
     container_name: app-container
     env_file:
