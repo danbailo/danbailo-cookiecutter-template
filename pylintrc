@@ -390,7 +390,7 @@ preferred-modules=
 
 # The type of string formatting that logging methods do. `old` means using %
 # formatting, `new` is for `{}` formatting.
-logging-format-style=fstr
+logging-format-style=old
 
 # Logging modules to check that the string format arguments are in logging
 # function parameter format.
@@ -418,7 +418,7 @@ confidence=HIGH,
 # no Warning level messages displayed, use "--disable=all --enable=classes
 # --disable=W".
 # disable=C,R,W,global-variable-not-assigned
-disable=C,R,W0612,W1113
+disable=C,R,W0612,W1113,fixme,unrecognized-inline-option
 
 # Enable the message, report, category or checker with the given id(s). You can
 # either give multiple identifier separated by comma (,) or put this option
