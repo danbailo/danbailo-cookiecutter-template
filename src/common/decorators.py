@@ -22,8 +22,8 @@ def async_timeit(f):
             return asyncio.run(f(*args, **kwargs))
         finally:
             logger.info(
-                'time elapsed to run "%s" - %ss',
-                f.__name__, f'{time.monotonic() - start:0.2f}'
+                f'time elapsed to run "{f.__name__}" - '
+                f'{time.monotonic() - start:0.2f}s',
             )
     return _async_timeit
 
@@ -36,7 +36,7 @@ def timeit(f):
             return f(*args, **kwargs)
         finally:
             logger.info(
-                'time elapsed to run "%s" - %ss',
-                f.__name__, f'{time.monotonic() - start:0.2f}'
+                f'time elapsed to run "{f.__name__}" - '
+                f'{time.monotonic() - start:0.2f}s',
             )
     return _timeit

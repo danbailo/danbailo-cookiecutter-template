@@ -1,9 +1,9 @@
 import logging
 
-import os
+from common.env_var import get_env_var
 
-# TODO: set alias as "local", "prod", "debug", etc.
-logger_level = os.environ.get('LOGGER_LEVEL') or 'DEBUG'
+logger_level = get_env_var('LOGGER_LEVEL')
+logger_level = logger_level.upper() if logger_level else 'DEBUG'
 
 MAPPED_LOGGER_LEVEL = {
     'CRITICAL': logging.CRITICAL,
