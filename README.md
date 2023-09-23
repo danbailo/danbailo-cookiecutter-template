@@ -1,6 +1,6 @@
 # Template Project
 
-![pylint]()
+![pylint](https://img.shields.io/badge/pylint-10.00-brightgreen?logo=python&logoColor=white)
 
 Simple structure that I([@danbailo](https://github.com/danbailo)) like use to build projects.
 
