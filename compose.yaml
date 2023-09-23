@@ -3,9 +3,9 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.test
-    image: my-test-image
+    image: ${COMPOSE_PROJECT_NAME}-test-image
     command: bash -c "python -m pylint src"
-    container_name: pylint-container
+    container_name: ${COMPOSE_PROJECT_NAME}-pylint-container
     env_file:
       - compose.env
 
@@ -13,9 +13,9 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.test
-    image: my-test-image
+    image: ${COMPOSE_PROJECT_NAME}-test-image
     command: bash -c "python -m flake8 src"
-    container_name: flake8-container
+    container_name: ${COMPOSE_PROJECT_NAME}-flake8-container
     env_file:
       - compose.env
 
@@ -23,9 +23,31 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: my-project-image
+    image: ${COMPOSE_PROJECT_NAME}-project-image
     command: bash -c "
       python main.py execute --option ${MY_VAR}"
-    container_name: app-container
+    container_name: ${COMPOSE_PROJECT_NAME}-app-container
     env_file:
       - compose.env
+
+  show-project-image-packages:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: ${COMPOSE_PROJECT_NAME}-project-image
+    command: bash -c "
+      cd .. && poetry show"
+    container_name: ${COMPOSE_PROJECT_NAME}-show-project-packages-container
+    env_file:
+      - compose.env
+
+  show-test-image-packages:
+    build:
+      context: .
+      dockerfile: Dockerfile.test
+    image: ${COMPOSE_PROJECT_NAME}-test-image
+    command: bash -c "
+      poetry show"
+    container_name: ${COMPOSE_PROJECT_NAME}-show-test-packages-container
+    env_file:
+      - compose.env      
