@@ -1,0 +1,16 @@
+name: Run Pylint
+
+on: push
+
+jobs:
+  deploy-production:
+    name: Deploy to Production
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout the files
+      uses: actions/checkout@v3
+
+    - uses: Silleellie/pylint-github-action@v1
+      with:
+        package-path: src
+        python-version: 3.11
