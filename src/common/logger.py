@@ -1,8 +1,8 @@
 import logging
 
-from common.env_var import get_env_var
+import os
 
-logger_level = get_env_var('LOGGER_LEVEL')
+logger_level = os.environ.get('LOGGER_LEVEL')
 logger_level = logger_level.upper() if logger_level else 'DEBUG'
 
 MAPPED_LOGGER_LEVEL = {
