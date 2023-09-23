@@ -4,35 +4,65 @@ Simple structure that I([@danbailo](https://github.com/danbailo)) like use to bu
 
 enjoy and... Python 🐍 for everthing :)
 
-## Suggest things
+## Preparing local enviroment
 
-- [pyenv](https://github.com/pyenv/pyenv) and [pyenv-installer](https://github.com/pyenv/pyenv-installer)
+### Installing virtual enviroment
 
-### Running applications with Docker
+Install a virtualenv - recommended [pyenv](https://github.com/pyenv/pyenv) | [pyenv-installer](https://github.com/pyenv/pyenv-installer)
 
-```bash
-docker compose --env-file=compose.env down --remove-orphans
-docker compose --env-file=compose.env build
+```
+pyenv update
+pyenv install 3.11.5
+pyenv virtualenv 3.11.5 template-project-env
+pyenv local template-project-env
 ```
 
-- To run specific service
+### Installing project requirements
 
 ```bash
-docker compose --env-file=compose.env run <service-name>
+pip install poetry==1.6.1
+poetry install
 ```
 
-or
+### Python dotenv
+
+Running project with `dotenv run python ...` to load external enviroment at runtime.
+
+By default, will load `.env` at current path, but you can load more than one enviroments.
 
 ```bash
-docker compose --env-file=compose.env create <service-name>
+dotenv -f .env-foo run python ...
+```
+
+Suggest enviroment variable `PYTHONBREAKPOINT=ipdb.set_trace`
+
+After install `ipdb` package, you can debug files with ipython when call `breakpoint()` in your code.
+
+
+## Using Docker
+
+#### Creating containers
+
+If you need to build the project(if you modify the code, for example), just add the flag `--build` at the end of the command
+```bash
+docker compose --env-file=compose.env create
+```
+
+#### Starting/running containers
+
+If you need to see the container logs, just add the flag `-a` to run it in attached mode(example: when you'll run pylint)
+
+```bash
 docker start <container-service-name>
 ```
 
-- To run all services
+#### To stop/remove containers
 
 ```bash
-docker compose --env-file=compose.env up
+docker compose --env-file=compose.env down --remove-orphans
 ```
+
+## Suggest things
 
 ### `__main__.py` module
 
@@ -54,17 +84,3 @@ src
 cd src
 python -m commands
 ```
-
-### Python dotenv
-
-Running project with `dotenv run python ...` to load external enviroment at runtime.
-
-By default, will load `.env` at current path, but you can load more than one enviroments.
-
-```bash
-dotenv -f .env-foo run python ...
-```
-
-Suggest enviroment variable `PYTHONBREAKPOINT=ipdb.set_trace`
-
-After install `ipdb` package, you can debug files with ipython when call `breakpoint()` in your code.
