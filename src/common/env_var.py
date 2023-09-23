@@ -23,3 +23,5 @@ def get_env_var(key: str, raise_exception: bool = True) -> str | None:
     if value is None and raise_exception is False:
         logger.warning(f'variable is not declared - {key.upper()}')
     return value
+
+asd
