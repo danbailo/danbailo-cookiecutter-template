@@ -21,10 +21,19 @@ pyenv local template-project-env
 
 ### Installing project requirements
 
+- Using poetry (recommended)
+
 ```bash
 pip install poetry==1.6.1
 poetry install
 ```
+
+- Using pip
+
+```bash
+pip install -r requirements.txt
+```
+
 
 ### Python dotenv
 
