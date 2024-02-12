@@ -1,4 +1,4 @@
-# Repositório de template de projetos pessoais
+# Repositório de template de projetos
 
 Esse repositório faz a utilização da ferramenta [cookiecutter](https://www.cookiecutter.io/) para
 gerenciar o template para criação de novos projetos.
