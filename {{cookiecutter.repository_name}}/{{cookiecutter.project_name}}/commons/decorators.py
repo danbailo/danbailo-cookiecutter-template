@@ -1,20 +1,19 @@
 import asyncio
-
+import signal
+import time
 from functools import wraps
-
 from math import ceil
 
-import signal
+from commons.logger import Logger
 
-import time
-
-from .logger import logger
+logger = Logger().get_logger()
 
 
 def coro(function):
     @wraps(function)
     def wrapper(*args, **kwargs):
         return asyncio.run(function(*args, **kwargs))
+
     return wrapper
 
 
@@ -29,6 +28,7 @@ def async_timeit(function):
                 f'time elapsed to run "{function.__name__}" - '
                 f'{time.monotonic() - start:0.2f}s',
             )
+
     return _async_timeit
 
 
@@ -43,6 +43,7 @@ def timeit(function):
                 f'time elapsed to run "{function.__name__}" - '
                 f'{time.monotonic() - start:0.2f}s',
             )
+
     return _timeit
 
 
@@ -63,5 +64,7 @@ def timeout(seconds):
 
             signal.alarm(0)
             return result
+
         return wrapper
+
     return decorator

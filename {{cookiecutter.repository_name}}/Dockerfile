@@ -39,5 +39,3 @@ COPY ./{{cookiecutter.project_name}} ./{{cookiecutter.project_name}}
 
 # limpa arquivos desnecessários
 RUN rm -rf poetry.lock pyproject.toml
-
-WORKDIR /app/{{cookiecutter.project_name}}

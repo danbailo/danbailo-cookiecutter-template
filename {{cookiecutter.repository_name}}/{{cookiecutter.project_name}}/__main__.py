@@ -1,19 +1,14 @@
 import typer
+from commons.decorators import coro
+from commons.env_var import get_env_var
+from commons.logger import Logger
 
-from common.logger import logger
-from common.decorators import coro
-
-from common.env_var import get_env_var
+logger = Logger().get_logger()
 
 app = typer.Typer()
 
 logger.info(f'my environ var: {get_env_var("MY_ENVIROMENT_VARIABLE")}')
 
-
-def foo(foo):
-    pass
-
-foo()
 
 @app.callback()
 def callback():
@@ -33,4 +28,3 @@ def execute(option: str = typer.Option()):
 
 if __name__ == '__main__':
     app()
-

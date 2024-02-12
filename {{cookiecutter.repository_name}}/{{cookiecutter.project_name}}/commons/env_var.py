@@ -1,10 +1,11 @@
 import os
-
 from typing import Any
 
 from dotenv import load_dotenv
 
-from .logger import logger
+from commons.logger import Logger
+
+logger = Logger().get_logger()
 
 load_dotenv()
 
