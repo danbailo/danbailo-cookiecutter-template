@@ -1,97 +1,42 @@
-# Template Project
+# Repositório de template de projetos pessoais
 
-![pylint](https://img.shields.io/badge/pylint-10.00-brightgreen?logo=python&logoColor=white)
+Esse repositório faz a utilização da ferramenta [cookiecutter](https://www.cookiecutter.io/) para
+gerenciar o template para criação de novos projetos.
 
-Simple structure that I([@danbailo](https://github.com/danbailo)) like use to build projects.
+## cookiecutter
 
-enjoy and... Python 🐍 for everthing :)
+Essa ferramenta utiliza o [Jinja](https://jinja.palletsprojects.com/en/3.1.x/) para escrever as
+configurações do template e facilmente conseguimos definir quais valores queremos "substituir" na
+criação de um novo projeto. Basta escrevermos o arquivo `cookiecutter.json` e declarar quais
+propriedades devem ser substituidas no novo template.
 
-## Preparing local enviroment
-
-### Installing virtual enviroment
-
-Install a virtualenv - recommended [pyenv](https://github.com/pyenv/pyenv) | [pyenv-installer](https://github.com/pyenv/pyenv-installer)
-
+Exemplo:
+```json
+{
+    "alguma-variavel": "foo",
+    "arquivo-python": "main",
+    "arquivo-comum": "file"
+}
 ```
-pyenv update
-pyenv install 3.11.5
-pyenv virtualenv 3.11.5 template-project-env
-pyenv local template-project-env
-```
 
-### Installing project requirements
+Com isso, no diretório de template, todos os lugares que estiverem declarado com ``{{alguma-variavel}}``, ``{{arquivo-python}}`` ou ``{{arquivo-comum}}`` serão gerados com o novo nome definido no ato da execução.
 
-- Using poetry (recommended)
+Ainda é possível aplicar [filtros Jinja](https://jinja.palletsprojects.com/en/3.1.x/templates/#list-of-builtin-filters) para customizar nomes específicos de dentro do template.
+
+Ex: 
+- ``{{alguma-variavel|lower}}`` - no template esse valor será gerado em lowercase
+- ``{{alguma-variavel|upper}}`` - no template esse valor será gerado em uppercase
+
+## Requisitos
+
+Somente instale o `cookiecutter` através do pip.
+
+- Recomendado: utilize o [pipx](https://github.com/pypa/pipx) para realizar a instalação desse pacote para isolar a instalação dessa ferramenta do sistema.
 
 ```bash
-pip install poetry==1.6.1
-poetry install
+pipx install cookiecutter
 ```
 
-- Using pip
+## Utilização
 
-```bash
-pip install -r requirements.txt
-```
-
-
-### Python dotenv
-
-Running project with `dotenv run python ...` to load external enviroment at runtime.
-
-By default, will load `.env` at current path, but you can load more than one enviroments.
-
-```bash
-dotenv -f .env-foo run python ...
-```
-
-Suggest enviroment variable `PYTHONBREAKPOINT=ipdb.set_trace`
-
-After install `ipdb` package, you can debug files with ipython when call `breakpoint()` in your code.
-
-
-## Using Docker
-
-#### Creating containers
-
-If you need to build the project(if you modify the code, for example), just add the flag `--build` at the end of the command
-```bash
-docker compose --env-file=compose.env create
-```
-
-#### Starting/running containers
-
-If you need to see the container logs, just add the flag `-a` to run it in attached mode(example: when you'll run pylint)
-
-```bash
-docker start <container-service-name>
-```
-
-#### To stop/remove containers
-
-```bash
-docker compose --env-file=compose.env down --remove-orphans
-```
-
-## Suggest things
-
-### `__main__.py` module
-
-A nice thing implemented in Python to run modules it's the [`__main__.py`](https://docs.python.org/3/library/__main__.html#main-py-in-python-packages) file.
-
-You can implement a module with `__main.py__` inside it and call it directly.
-
-Example
-
-```
-src
-  commands
-    ├── __init__.py
-    └── __main__.py
-```
-
-
-```bash
-cd src
-python -m commands
-```
+Realize a chamada do `cookiecutter` passando o diretório onde contém um template cookiecutter que configura o arquivo `cookiecutter.json`

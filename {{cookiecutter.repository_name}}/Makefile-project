@@ -1,0 +1,6 @@
+prepare_env_pyenv:
+	pyenv update
+	pyenv install 3.11.3 -s
+	pyenv virtualenv -f 3.11.3 {{cookiecutter.project_name}}-env
+	pyenv local {{cookiecutter.project_name}}-env
+	pip install poetry==1.6.1

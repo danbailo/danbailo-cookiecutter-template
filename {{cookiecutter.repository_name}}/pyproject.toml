@@ -1,0 +1,43 @@
+[tool.poetry]
+name = "legalops_commons"
+version = "0.1.0"
+description = ""
+authors = ["LegalOps Devs <legalops-devs@jusbrasil.com.br>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+typer = "^0.9.0"
+python-dotenv = "^1.0.0"
+tenacity = "^8.2.3"
+python-dateutil = "^2.8.2"
+regex = "^2023.12.25"
+httpx = "^0.26.0"
+structlog = "^24.1.0"
+
+[tool.poetry.group.dev.dependencies]
+ipdb = "^0.13.13"
+pytest = "^7.4.4"
+ruff = "^0.1.15"
+mypy = "^1.8.0"
+
+[tool.ruff]
+line-length = 88
+
+[tool.ruff.lint]
+select = ["I", "F"]
+
+[tool.ruff.format]
+quote-style = "single"
+docstring-code-format = true
+
+[tool.mypy]
+disable_error_code = [
+    "union-attr", "import-untyped", "arg-type",
+    "return-value", "return", "override",
+    "assignment", "var-annotated"
+]
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

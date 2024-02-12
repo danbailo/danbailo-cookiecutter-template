@@ -10,6 +10,11 @@ app = typer.Typer()
 logger.info(f'my environ var: {get_env_var("MY_ENVIROMENT_VARIABLE")}')
 
 
+def foo(foo):
+    pass
+
+foo()
+
 @app.callback()
 def callback():
     pass
@@ -28,3 +33,4 @@ def execute(option: str = typer.Option()):
 
 if __name__ == '__main__':
     app()
+
