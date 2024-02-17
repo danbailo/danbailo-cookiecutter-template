@@ -1,6 +1,7 @@
 {
     "repository_name": null,
     "project_name": null,
+    "project_description": "",
     "_copy_without_render": [
         ".github"
     ]

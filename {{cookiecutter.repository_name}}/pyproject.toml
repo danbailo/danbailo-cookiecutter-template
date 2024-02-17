@@ -1,8 +1,8 @@
 [tool.poetry]
-name = "legalops_commons"
+name = {{cookiecutter.repository_name}}
 version = "0.1.0"
-description = ""
-authors = ["LegalOps Devs <legalops-devs@jusbrasil.com.br>"]
+description = "{{cookiecutter.project_description}}"
+authors = ["Daniel Bailo <danbailoufms@gmail.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
