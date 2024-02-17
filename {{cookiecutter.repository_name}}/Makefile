@@ -31,3 +31,6 @@ check_types:
 
 test:
 	@poetry run pytest -s $(TESTS)
+
+check_all: check_format check_lint check_types test
+	@echo "all passed!"
