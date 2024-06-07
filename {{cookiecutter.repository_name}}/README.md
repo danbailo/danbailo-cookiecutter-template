@@ -9,7 +9,7 @@ enjoy and... Python 🐍 for everthing 😄
 ## Make
 The project uses a [Makefile](Makefile) to facilitate project installation, lint execution, typing and testing.
 
-## Preparing virtual enviroment
+### Preparing virtual enviroment
 
 It is highly recommended to use virtual environments when developing Python projects.
 
