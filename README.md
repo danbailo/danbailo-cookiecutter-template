@@ -1,42 +1,40 @@
-# Repositório de template de projetos
+# danbailo Cookiecutter Template
 
-Esse repositório faz a utilização da ferramenta [cookiecutter](https://www.cookiecutter.io/) para
-gerenciar o template para criação de novos projetos.
+This repository uses the [cookiecutter](https://www.cookiecutter.io/) tool to
+manage the template for creating new projects.
 
 ## cookiecutter
 
-Essa ferramenta utiliza o [Jinja](https://jinja.palletsprojects.com/en/3.1.x/) para escrever as
-configurações do template e facilmente conseguimos definir quais valores queremos "substituir" na
-criação de um novo projeto. Basta escrevermos o arquivo `cookiecutter.json` e declarar quais
-propriedades devem ser substituidas no novo template.
+This tool uses [Jinja](https://jinja.palletsprojects.com/en/3.1.x/) to write the
+template settings and we can easily define which values ​​we want to "replace" in the
+creation of a new project. We just need to write the file `cookiecutter.json` and declare which
+properties must be replaced in the new template.
 
-Exemplo:
+Example:
 ```json
 {
-    "alguma-variavel": "foo",
-    "arquivo-python": "main",
-    "arquivo-comum": "file"
+    "some-variable": "foo",
+    "python-file": "main",
+    "common-file": "file"
 }
 ```
 
-Com isso, no diretório de template, todos os lugares que estiverem declarado com ``{{alguma-variavel}}``, ``{{arquivo-python}}`` ou ``{{arquivo-comum}}`` serão gerados com o novo nome definido no ato da execução.
+Therefore, in the template directory, all places that are declared with ``{{some-variable}}``, ``{{python-file}}`` or ``{{common-file}}`` will be generated with the new name defined at the time of execution.
 
-Ainda é possível aplicar [filtros Jinja](https://jinja.palletsprojects.com/en/3.1.x/templates/#list-of-builtin-filters) para customizar nomes específicos de dentro do template.
+It is still possible to apply [Jinja filters](https://jinja.palletsprojects.com/en/3.1.x/templates/#list-of-builtin-filters) to customize specific names from within the template.
 
-Ex: 
-- ``{{alguma-variavel|lower}}`` - no template esse valor será gerado em lowercase
-- ``{{alguma-variavel|upper}}`` - no template esse valor será gerado em uppercase
+Example:
+- ``{{some-variable|lower}}`` - in the template this value will be generated in lowercase
+- ``{{some-variable|upper}}`` - in the template this value will be generated in uppercase
 
-## Requisitos
+## Requisites
 
-Somente instale o `cookiecutter` através do pip.
-
-- Recomendado: utilize o [pipx](https://github.com/pypa/pipx) para realizar a instalação desse pacote para isolar a instalação dessa ferramenta do sistema.
+Just install the cookiecutter using pip
 
 ```bash
-pipx install cookiecutter
+pip install cookiecutter
 ```
 
-## Utilização
+## How to use
 
-Realize a chamada do `cookiecutter` passando o diretório onde contém um template cookiecutter que configura o arquivo `cookiecutter.json`
+Call the `cookiecutter` in terminal passing the directory where it contains a cookiecutter template that configures the `cookiecutter.json` file.
