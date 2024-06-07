@@ -1,27 +1,29 @@
 import logging
 
 import structlog
-from structlog.testing import capture_logs
 
 from {{cookiecutter.repository_name|lower|replace("-", "_")}}.commons.logger import LoggerFactory, LoggerNameEnum
 
 
-def test_logger():
-    with capture_logs() as cap_logs:
-        logger = LoggerFactory.new()
-        logger.info('some teeeest', foo='foo')
+def calling_loggers():
+    logger = LoggerFactory.new()
+    logger.info('some teeeest', foo='foo')
 
-        try:
-            1 / 0
-        except Exception:
-            logger.error('got error!', exc_info=True)
-            logger.exception('got error!')
+    try:
+        1 / 0
+    except Exception:
+        logger.error('got error!', exc_info=True)
+        logger.exception('got error!')
 
-        logger.info('some teeeest', foo='bar')
-        logger.warning('some teeeest', lorem='lorem')
-        logger.debug('some teeeest', cnj='123', pasta=123)
+    logger.info('some teeeest', foo='bar')
+    logger.warning('some teeeest', lorem='lorem')
+    logger.debug('some teeeest', cnj='123', pasta=123)
 
-    assert cap_logs == [
+
+def test_logger(log):
+    calling_loggers()
+
+    assert log.events == [
         {'event': 'some teeeest', 'foo': 'foo', 'log_level': 'info'},
         {'event': 'got error!', 'exc_info': True, 'log_level': 'error'},
         {'event': 'got error!', 'exc_info': True, 'log_level': 'error'},
@@ -31,7 +33,7 @@ def test_logger():
     ]
 
 
-def test_logger_factory():
+def test_loggeer_factory():
     assert LoggerFactory.logger_name() == LoggerNameEnum.prod
     assert LoggerFactory.logger_level() == logging.INFO
     for renderer in LoggerFactory.logger_renderer():
@@ -47,8 +49,6 @@ def test_logger_factory():
     assert len(configs['processors']) == 8
 
     # Reset config
-    LoggerFactory.is_configured = False
-    LoggerFactory._logger_name = None
     LoggerFactory._logger_renderers = []
     LoggerFactory._logger_configs = None
     LoggerFactory._logger_level = None
