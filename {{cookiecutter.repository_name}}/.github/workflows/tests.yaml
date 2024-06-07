@@ -18,7 +18,7 @@ jobs:
 
     strategy:
       matrix:
-        python: ["3.12"]
+        python: ["3.11"]
 
     steps:
     - name: Checkout Code
@@ -48,19 +48,3 @@ jobs:
 
     - name: Run tests
       run: make test
-
-  kubernetes:
-    runs-on: ubuntu-latest
-    timeout-minutes: 20
-
-    steps:
-    - name: Checkout Code
-      uses: actions/checkout@v4
-
-    - name: Setup Polaris
-      uses: fairwindsops/polaris/.github/actions/setup-polaris@master
-      with:
-        version: 5.0.0
-
-    - name: Run kubernetes checks
-      run: make kubernetes_check
