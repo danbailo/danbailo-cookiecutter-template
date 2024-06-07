@@ -1,4 +1,4 @@
-FROM python:3.11.3-slim-bullseye
+FROM python:3.12.3-slim-bullseye
 
 RUN apt-get update && apt-get install \
 		--no-install-recommends -qq -y \
@@ -30,7 +30,7 @@ WORKDIR /app
 # instala os requerimentos do projeto
 COPY poetry.lock pyproject.toml /app/
 
-RUN pip install poetry==1.6.1
+RUN pip install poetry
 RUN poetry config virtualenvs.create false
 RUN poetry install --only main --no-interaction --no-ansi
 
