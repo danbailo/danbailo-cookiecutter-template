@@ -48,6 +48,8 @@ prepare_env_pyenv:
 
 	@echo "\nInstalling poetry..."
 	@pip install poetry
+	@poetry config virtualenvs.create false --local
+	@poetry config virtualenvs.prefer-active-python true --local
 
 	@echo "\nProject prepared to install!"
 
