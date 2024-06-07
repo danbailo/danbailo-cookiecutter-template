@@ -4,9 +4,9 @@ import time
 from functools import wraps
 from math import ceil
 
-from commons.logger import Logger
+from {{cookiecutter.repository_name|lower|replace("-", "_")}}.commons.logger import Logger, LoggerFactory
 
-logger = Logger().get_logger()
+logger: Logger = LoggerFactory.new()
 
 
 def coro(function):
@@ -24,8 +24,8 @@ def async_timeit(function):
         try:
             return asyncio.run(function(*args, **kwargs))
         finally:
-            logger.info(
-                f'time elapsed to run "{function.__name__}" - '
+            logger.debug(
+                f'Time elapsed to run "{function.__name__}" - '
                 f'{time.monotonic() - start:0.2f}s',
             )
 
@@ -39,8 +39,8 @@ def timeit(function):
         try:
             return function(*args, **kwargs)
         finally:
-            logger.info(
-                f'time elapsed to run "{function.__name__}" - '
+            logger.debug(
+                f'Time elapsed to run "{function.__name__}" - '
                 f'{time.monotonic() - start:0.2f}s',
             )
 

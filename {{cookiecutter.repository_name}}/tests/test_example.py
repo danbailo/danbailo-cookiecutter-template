@@ -1,2 +1,2 @@
 def test_foo():
-    pass
+    assert True is (not False)

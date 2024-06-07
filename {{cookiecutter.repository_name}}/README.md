@@ -1,4 +1,4 @@
-# {{cookiecutter.repository_name}}
+# {{cookiecutter.project_name}}
 
 [![Pull Request Checks](https://github.com/danbailo/{{cookiecutter.repository_name}}/actions/workflows/pull-request-checks.yaml/badge.svg)](https://github.com/danbailo/{{cookiecutter.repository_name}}/actions/workflows/pull-request-checks.yaml)
 

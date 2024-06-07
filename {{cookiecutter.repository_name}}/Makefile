@@ -1,5 +1,5 @@
 REPOSITORY = {{cookiecutter.repository_name}}
-SOURCE = {{cookiecutter.project_name}}
+SOURCE = {{cookiecutter.repository_name|lower|replace("-", "_")}}
 TESTS = tests
 
 
@@ -42,9 +42,9 @@ check_all: check_format check_lint check_types test
 prepare_env_pyenv:
 	@echo "\nPreparing virtualenv using pyenv..."
 	@pyenv update
-	@pyenv install 3.12.3 -s
-	@pyenv virtualenv -f 3.12.3 {{cookiecutter.project_name}}-env
-	@pyenv local {{cookiecutter.project_name}}-env
+	@pyenv install 3.11.3 -s
+	@pyenv virtualenv -f 3.11.3 {{cookiecutter.repository_name|lower|replace("-", "_")}}-env
+	@pyenv local {{cookiecutter.repository_name|lower|replace("-", "_")}}-env
 
 	@echo "\nInstalling poetry..."
 	@pip install poetry
@@ -52,4 +52,4 @@ prepare_env_pyenv:
 	@echo "\nProject prepared to install!"
 
 install_with_pyenv: prepare_env_pyenv install
-	@echo "\nProject installed!"
+	@echo "\nProject installed with pyenv!"

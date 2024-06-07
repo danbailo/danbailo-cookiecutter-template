@@ -1,35 +1,35 @@
 import logging
+from enum import StrEnum
 from os import getenv
 
 import structlog
+from dotenv import load_dotenv
+
+load_dotenv()
+
+Logger = structlog.types.FilteringBoundLogger
 
 
-class LoggerContext:
-    @staticmethod
-    def bind(**kwargs):
-        structlog.contextvars.bind_contextvars(**kwargs)
-
-    @staticmethod
-    def clear():
-        structlog.contextvars.clear_contextvars()
+class LoggerNameEnum(StrEnum):
+    prod = 'prod'
+    local = 'local'
 
 
 class LoggerFactory:
-    LOCAL_LOGGER = 'local'
-    is_configured = False
+    is_configured: bool = False
 
     _logger_name: str = None
-    _is_local: bool = None
     _logger_renderers: list = []
-    _logger_level: str = None
     _logger_configs: dict | None = None
+    _logger_level: int = None
+    _is_local: bool = None
 
     @classmethod
     def logger_name(cls) -> str:
         if cls._logger_name is not None:
             return cls._logger_name
 
-        cls._logger_name = (getenv('LOGGER_NAME', cls.LOCAL_LOGGER)).lower()
+        cls._logger_name = getenv('LOGGER_NAME', LoggerNameEnum.prod).lower()
         return cls._logger_name
 
     @classmethod
@@ -37,7 +37,7 @@ class LoggerFactory:
         if cls._is_local is not None:
             return cls._is_local
 
-        cls._is_local = cls.logger_name() == cls.LOCAL_LOGGER
+        cls._is_local = cls.logger_name() == LoggerNameEnum.local
         return cls._is_local
 
     @classmethod
@@ -75,14 +75,14 @@ class LoggerFactory:
                 structlog.contextvars.merge_contextvars,
                 structlog.processors.add_log_level,
                 structlog.processors.StackInfoRenderer(),
-                structlog.dev.set_exc_info,
+                structlog.processors.ExceptionRenderer(),
                 structlog.processors.TimeStamper(fmt='%Y-%m-%d %H:%M:%S', utc=False),
                 structlog.processors.CallsiteParameterAdder(
                     [
                         structlog.processors.CallsiteParameter.PATHNAME,
                         structlog.processors.CallsiteParameter.FUNC_NAME,
                         structlog.processors.CallsiteParameter.LINENO,
-                    ],
+                    ]
                 ),
                 *cls.logger_renderer(),
             ],
@@ -100,6 +100,6 @@ class LoggerFactory:
             cls.is_configured = True
 
     @classmethod
-    def get(cls):
+    def new(cls) -> Logger:
         cls.configure()
         return structlog.get_logger()

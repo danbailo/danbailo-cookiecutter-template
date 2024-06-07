@@ -1,13 +1,11 @@
 import typer
-from commons.decorators import coro
-from commons.env_var import get_env_var
-from commons.logger import Logger
 
-logger = Logger().get_logger()
+from {{cookiecutter.repository_name|lower|replace("-", "_")}}.commons.decorators import coro
+from {{cookiecutter.repository_name|lower|replace("-", "_")}}.commons.logger import Logger, LoggerFactory
+
+logger: Logger = LoggerFactory.new()
 
 app = typer.Typer()
-
-logger.info(f'my environ var: {get_env_var("MY_ENVIROMENT_VARIABLE")}')
 
 
 @app.callback()

@@ -1,4 +1,4 @@
-FROM python:3.12.3-slim-bullseye
+FROM python:3.11.3-slim-bullseye
 
 RUN apt-get update && apt-get install \
 		--no-install-recommends -qq -y \
@@ -35,7 +35,7 @@ RUN poetry config virtualenvs.create false
 RUN poetry install --only main --no-interaction --no-ansi
 
 # copia o diretório do projeto
-COPY ./{{cookiecutter.project_name}} ./{{cookiecutter.project_name}}
+COPY ./{{cookiecutter.repository_name|lower|replace("-", "_")}} ./{{cookiecutter.repository_name|lower|replace("-", "_")}}
 
 # limpa arquivos desnecessários
 RUN rm -rf poetry.lock pyproject.toml
