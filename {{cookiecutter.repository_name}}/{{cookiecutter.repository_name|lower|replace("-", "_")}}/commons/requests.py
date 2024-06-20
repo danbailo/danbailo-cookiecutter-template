@@ -28,6 +28,7 @@ class MethodRequestEnum(StrEnum):
 async def make_async_request(
     method: MethodRequestEnum,
     url: str,
+    *,
     data: dict | None = None,
     params: dict | None = None,
     headers: dict | None = None,
@@ -40,6 +41,8 @@ async def make_async_request(
     _logger.debug(
         'Making async request...',
         data=dict(
+            method=method,
+            url=url,
             data=data,
             params=params,
             headers=headers,
@@ -78,6 +81,7 @@ async def make_async_request(
 def make_request(
     method: MethodRequestEnum,
     url: str,
+    *,
     data: dict | None = None,
     params: dict | None = None,
     headers: dict | None = None,
@@ -90,6 +94,8 @@ def make_request(
     _logger.debug(
         'Making request...',
         data=dict(
+            method=method,
+            url=url,
             data=data,
             params=params,
             headers=headers,
