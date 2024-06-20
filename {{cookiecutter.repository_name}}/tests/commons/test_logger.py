@@ -1,4 +1,5 @@
 import logging
+import os
 
 import structlog
 
@@ -33,33 +34,34 @@ def test_logger(log):
     ]
 
 
-def test_loggeer_factory():
-    assert LoggerFactory.logger_name() == LoggerNameEnum.prod
-    assert LoggerFactory.logger_level() == logging.INFO
-    for renderer in LoggerFactory.logger_renderer():
-        assert isinstance(
-            renderer,
-            (structlog.processors.EventRenamer, structlog.processors.JSONRenderer),
-        )
+def test_logger_factory():
+    LOGGER_NAME = os.getenv('LOGGER_NAME') or 'prod'
 
-    configs = LoggerFactory.logger_configs()
-    assert configs['cache_logger_on_first_use'] is False
-    assert configs['context_class'] is dict
-    assert isinstance(configs['logger_factory'], structlog.PrintLoggerFactory)
-    assert len(configs['processors']) == 8
+    if LOGGER_NAME == 'prod':
+        assert LoggerFactory.logger_name() == LoggerNameEnum.prod
+        assert LoggerFactory.logger_level() == logging.INFO
+        for renderer in LoggerFactory.logger_renderer():
+            assert isinstance(
+                renderer,
+                (structlog.processors.EventRenamer, structlog.processors.JSONRenderer),
+            )
 
-    # Reset config
-    LoggerFactory._logger_renderers = []
-    LoggerFactory._logger_configs = None
-    LoggerFactory._logger_level = None
-    LoggerFactory._is_local = True
+        configs = LoggerFactory.logger_configs()
+        assert configs['cache_logger_on_first_use'] is False
+        assert configs['context_class'] is dict
+        assert isinstance(configs['logger_factory'], structlog.PrintLoggerFactory)
+        assert len(configs['processors']) == 8
 
-    assert LoggerFactory.logger_level() == logging.DEBUG
-    for renderer in LoggerFactory.logger_renderer():
-        assert isinstance(renderer, structlog.dev.ConsoleRenderer)
+    elif LOGGER_NAME == 'local':
+        assert LoggerFactory.logger_level() == logging.DEBUG
+        for renderer in LoggerFactory.logger_renderer():
+            assert isinstance(renderer, structlog.dev.ConsoleRenderer)
 
-    configs = LoggerFactory.logger_configs()
-    assert configs['cache_logger_on_first_use'] is False
-    assert configs['context_class'] is dict
-    assert isinstance(configs['logger_factory'], structlog.PrintLoggerFactory)
-    assert len(configs['processors']) == 7
+        configs = LoggerFactory.logger_configs()
+        assert configs['cache_logger_on_first_use'] is False
+        assert configs['context_class'] is dict
+        assert isinstance(configs['logger_factory'], structlog.PrintLoggerFactory)
+        assert len(configs['processors']) == 7
+
+    else:
+        raise Exception('LOGGER_NAME is different of `prod` or `local`')
