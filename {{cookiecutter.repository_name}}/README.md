@@ -1,6 +1,6 @@
 # {{cookiecutter.project_name}}
 
-[![Tests](https://github.com/{{cookiecutter.gh_username_or_gh_organization}}/{{cookiecutter.repository_name}}/actions/workflows/tests.yaml/badge.svg?branch=main)](https://github.com/{{cookiecutter.gh_username_or_gh_organization}}/{{cookiecutter.repository_name}}/actions/workflows/tests.yaml) ![Coverage Status](./assets/coverage-badge.svg)
+[![Tests and Linting](https://github.com/{{cookiecutter.gh_username_or_gh_organization}}/{{cookiecutter.repository_name}}/actions/workflows/tests.yaml/badge.svg?branch=main)](https://github.com/{{cookiecutter.gh_username_or_gh_organization}}/{{cookiecutter.repository_name}}/actions/workflows/tests.yaml) ![Coverage Status](./assets/coverage-badge.svg)
 
 Simple structure that I([@danbailo](https://github.com/danbailo)) like use to build projects.
 
