@@ -53,7 +53,7 @@ async def make_async_request(
         ),
     )
 
-    if authorization:
+    if authorization and isinstance(headers, dict):
         headers['Authorization'] = authorization
 
     async with AsyncClient() as client:
@@ -106,7 +106,7 @@ def make_request(
         ),
     )
 
-    if authorization:
+    if authorization and isinstance(headers, dict):
         headers['Authorization'] = authorization
 
     response = httpx.request(
