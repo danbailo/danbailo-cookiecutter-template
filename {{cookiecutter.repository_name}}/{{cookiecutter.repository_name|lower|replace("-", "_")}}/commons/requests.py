@@ -37,8 +37,8 @@ async def make_async_request(
     files: list[tuple[str, tuple[str, bytes]]] = None,
     timeout: int = 120,
     auth: tuple[str, str] | None = None,
-    raise_for_status: bool = True,
     follow_redirects: bool = True,
+    raise_for_status: bool = True,
 ) -> Response:
     _logger.debug(
         'Making async request...',
@@ -96,8 +96,8 @@ def make_request(
     files: list[tuple[str, tuple[str, bytes]]] = None,
     timeout: int = 120,
     auth: Optional[tuple[str, str]] = None,
-    raise_for_status: bool = True,
     follow_redirects: bool = True,
+    raise_for_status: bool = True,
 ) -> Response:
     _logger.debug(
         'Making request...',
