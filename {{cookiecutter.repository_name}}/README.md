@@ -26,7 +26,13 @@ make install
 Install the [prerequisites](https://github.com/pyenv/pyenv/wiki/Common-build-problems#prerequisites) and then install [pyenv](https://github.com/pyenv/pyenv-installer). After install and configure pyenv, just install the project using Make.
 
 ```
-make install_with_pyenv
+make prepare_env_pyenv
+```
+
+then
+
+```
+make install
 ```
 
 ### Checkers
@@ -41,7 +47,7 @@ make install_with_pyenv
 
 `make check_types` - Checks the typing hinting of the code.
 
-`make test` - Runs the project's tests.
+`make tests` - Runs the project's tests.
 
 `make check_all` - Runs all the project's "checkers" and tests signaling when everything is ok. This way, it is certain that the pull-request pipeline will be ready to go to main.
 

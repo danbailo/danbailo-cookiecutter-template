@@ -1,3 +1,14 @@
+.PHONY: build \
+	install \
+	check_format \
+	format \
+	check_lint \
+	lint \
+	check_types \
+	tests \
+	check_all \
+	prepare_env_pyenv
+
 REPOSITORY = {{cookiecutter.repository_name}}
 SOURCE = {{cookiecutter.repository_name|lower|replace("-", "_")}}
 TESTS = tests
@@ -31,19 +42,19 @@ check_types:
 	@poetry run mypy $(SOURCE)
 	@poetry run mypy $(TESTS)
 
-test:
+tests:
 	@echo "\nRunning Tests"
 	@poetry run pytest -s $(TESTS) --cov=$(SOURCE)
 	@poetry run coverage-badge -o assets/coverage-badge.svg -f -q
 
-check_all: check_format check_lint check_types test
+check_all: check_format check_lint check_types tests
 	@echo "\nAll checks have been passed!"
 
 prepare_env_pyenv:
 	@echo "\nPreparing virtualenv using pyenv..."
 	@pyenv update
-	@pyenv install 3.11.3 -s
-	@pyenv virtualenv -f 3.11.3 {{cookiecutter.repository_name|lower|replace("-", "_")}}-env
+	@pyenv install 3.11 -s
+	@pyenv virtualenv -f 3.11 {{cookiecutter.repository_name|lower|replace("-", "_")}}-env
 	@pyenv local {{cookiecutter.repository_name|lower|replace("-", "_")}}-env
 
 	@echo "\nInstalling poetry..."
@@ -52,6 +63,3 @@ prepare_env_pyenv:
 	@poetry config virtualenvs.prefer-active-python true --local
 
 	@echo "\nProject prepared to install!"
-
-install_with_pyenv: prepare_env_pyenv install
-	@echo "\nProject installed with pyenv!"
