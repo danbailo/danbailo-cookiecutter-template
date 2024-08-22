@@ -28,29 +28,36 @@ class MethodRequestEnum(StrEnum):
 async def make_async_request(
     method: MethodRequestEnum,
     url: str,
+    *,
     data: dict | None = None,
+    json: dict | None = None,
     params: dict | None = None,
     headers: dict | None = None,
     authorization: str | None = None,
     files: list[tuple[str, tuple[str, bytes]]] = None,
     timeout: int = 120,
     auth: tuple[str, str] | None = None,
+    follow_redirects: bool = True,
     raise_for_status: bool = True,
 ) -> Response:
     _logger.debug(
         'Making async request...',
         data=dict(
+            method=method,
+            url=url,
             data=data,
+            json=json,
             params=params,
             headers=headers,
             authorization=authorization,
             files=files,
             timeout=timeout,
             auth=auth,
+            follow_redirects=follow_redirects,
         ),
     )
 
-    if authorization:
+    if authorization and isinstance(headers, dict):
         headers['Authorization'] = authorization
 
     async with AsyncClient() as client:
@@ -58,11 +65,13 @@ async def make_async_request(
             method,
             url,
             data=data,
+            json=json,
             params=params,
             headers=headers,
             timeout=timeout,
             auth=auth,
             files=files,
+            follow_redirects=follow_redirects,
         )
     if raise_for_status:
         response.raise_for_status()
@@ -78,40 +87,49 @@ async def make_async_request(
 def make_request(
     method: MethodRequestEnum,
     url: str,
+    *,
     data: dict | None = None,
+    json: dict | None = None,
     params: dict | None = None,
     headers: dict | None = None,
     authorization: str | None = None,
     files: list[tuple[str, tuple[str, bytes]]] = None,
     timeout: int = 120,
     auth: Optional[tuple[str, str]] = None,
+    follow_redirects: bool = True,
     raise_for_status: bool = True,
 ) -> Response:
     _logger.debug(
         'Making request...',
         data=dict(
+            method=method,
+            url=url,
             data=data,
+            json=json,
             params=params,
             headers=headers,
             authorization=authorization,
             files=files,
             timeout=timeout,
             auth=auth,
+            follow_redirects=follow_redirects,
         ),
     )
 
-    if authorization:
+    if authorization and isinstance(headers, dict):
         headers['Authorization'] = authorization
 
     response = httpx.request(
         method,
         url,
         data=data,
+        json=data,
         params=params,
         headers=headers,
         timeout=timeout,
         auth=auth,
         files=files,
+        follow_redirects=follow_redirects,
     )
     if raise_for_status:
         response.raise_for_status()
