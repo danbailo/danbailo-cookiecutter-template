@@ -1,6 +1,6 @@
 from tenacity import RetryCallState
 
-from process_data_flow.commons.logger import Logger, LoggerFactory
+from {{cookiecutter.repository_name|lower|replace("-", "_")}}.commons.logger import Logger, LoggerFactory
 
 _logger: Logger = LoggerFactory.new()
 
