@@ -1,4 +1,4 @@
-FROM --platform=linux/amd64 ghcr.io/astral-sh/uv:python3.11-bookworm-slim AS build_amd64
+FROM --platform=linux/amd64 python:3.11-slim-bullseye AS build_amd64
 
 RUN apt-get update && apt-get install \
   --no-install-recommends -qq -y \
@@ -7,19 +7,21 @@ RUN apt-get update && apt-get install \
   build-essential \
   locales \
   locales-all \
-  git \
-  python3-pip \
-  python3-setuptools \
   gcc \
   g++ \
   libpoppler-cpp-dev \
   poppler-utils \
   pkg-config \
-  cmake \
-  python3-opencv \
-  libopencv-dev \
-  libjpeg-dev \ 
-  libpng-dev
+  cmake
+
+# Download the latest installer
+ADD https://astral.sh/uv/0.4.15/install.sh /uv-installer.sh
+
+# Run the installer then remove it
+RUN sh /uv-installer.sh && rm /uv-installer.sh
+
+# Ensure the installed binary is on the `PATH`
+ENV PATH="/root/.cargo/bin/:$PATH"
 
 # Configure locales
 RUN sed -i -e 's/# \(pt_BR\.UTF-8 .*\)/\1/' /etc/locale.gen && locale-gen
