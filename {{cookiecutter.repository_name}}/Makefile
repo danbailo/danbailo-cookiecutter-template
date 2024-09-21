@@ -2,64 +2,56 @@
 	install \
 	check_format \
 	format \
-	check_lint \
 	lint \
-	check_types \
 	tests \
+	check_lint \
+	check_types \
 	check_all \
-	prepare_env_pyenv
+	clean \
 
 REPOSITORY = {{cookiecutter.repository_name}}
 SOURCE = {{cookiecutter.repository_name|lower|replace("-", "_")}}
 TESTS = tests
 
-
 build:
 	@docker build -t $(REPOSITORY):latest .
 
 install:
-	@echo "\nInstalling project..."
-	@poetry install --no-root
-	@echo "\nProject installed!"
-
-check_format:
-	@poetry run ruff format $(SOURCE) --check
-	@poetry run ruff format $(TESTS) --check
+	@uv sync
 
 format:
-	@poetry run ruff format $(SOURCE)
-	@poetry run ruff format $(TESTS)
-
-check_lint:
-	@poetry run ruff check $(SOURCE)
-	@poetry run ruff check $(TESTS)
+	@uv run ruff format $(SOURCE)
+	@uv run ruff format $(TESTS)
 
 lint:
-	@poetry run ruff check $(SOURCE) --fix
-	@poetry run ruff check $(TESTS) --fix
-
-check_types:
-	@poetry run mypy $(SOURCE)
-	@poetry run mypy $(TESTS)
+	@uv run ruff check $(SOURCE) --fix
+	@uv run ruff check $(TESTS) --fix
 
 tests:
-	@echo "\nRunning Tests"
-	@poetry run pytest -s $(TESTS) --cov=$(SOURCE)
-	@poetry run coverage-badge -o assets/coverage-badge.svg -f -q
+	@printf "Running Tests"
+	@uv run pytest -s $(TESTS) --cov=$(SOURCE)
+	@uv run coverage xml
+
+check_format:
+	@uv run ruff format $(SOURCE) --check
+	@uv run ruff format $(TESTS) --check
+
+check_lint:
+	@uv run ruff check $(SOURCE)
+	@uv run ruff check $(TESTS)
+
+check_types:
+	@uv run mypy $(SOURCE)
+	@uv run mypy $(TESTS)
 
 check_all: check_format check_lint check_types tests
-	@echo "\nAll checks have been passed!"
+	@printf "All checks have been passed! 🎉✅\n"
 
-prepare_env_pyenv:
-	@echo "\nPreparing virtualenv using pyenv..."
-	@pyenv update
-	@pyenv install 3.11 -s
-	@pyenv virtualenv -f 3.11 {{cookiecutter.repository_name|lower|replace("-", "_")}}-env
-	@pyenv local {{cookiecutter.repository_name|lower|replace("-", "_")}}-env
-
-	@echo "\nInstalling poetry..."
-	@pip install poetry
-	@poetry config virtualenvs.create false --local
-	@poetry config virtualenvs.prefer-active-python true --local
-
-	@echo "\nProject prepared to install!"
+clean:
+	@docker compose -f docker-compose.local.yaml --env-file docker-compose.local.env down --remove-orphans
+	@uv cache clean
+	@rm -rf .ruff_cache
+	@rm -rf .mypy_cache
+	@rm -rf .pytest_cache
+	@find . -name "__pycache__" -type d -exec rm -rf {} +
+	@printf "File and directory cache removed! ➡️ 🗑️ ✅\n"
