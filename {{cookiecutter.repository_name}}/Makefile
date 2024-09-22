@@ -48,7 +48,7 @@ check_all: check_format check_lint check_types tests
 	@printf "All checks have been passed! 🎉✅\n"
 
 clean:
-	@docker compose -f docker-compose.local.yaml --env-file docker-compose.local.env down --remove-orphans
+	@docker compose down --remove-orphans
 	@uv cache clean
 	@rm -rf .ruff_cache
 	@rm -rf .mypy_cache
