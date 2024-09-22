@@ -15,10 +15,12 @@ bkp_shell_rc() {
 
 uv_settings() {
     printf "\n# UV Settings\n"
-    printf "alias python='.venv/bin/python'\n"
     printf "if [ -f .venv/bin/activate ]; then\n"
+    printf "{\n"
+    printf "    alias python='.venv/bin/python'\n"
     printf "    source .venv/bin/activate\n"
-    printf "fi\n\n"  # Added newline after the closing if statement
+    printf "}\n"
+    printf "fi\n\n"
 }
 
 define_shell_rc
@@ -27,7 +29,7 @@ bkp_shell_rc
 
 if ! grep -q "UV Settings" "$SHELL_RC_PATH"; then
     uv_settings >> "$SHELL_RC_PATH"
-    printf "Environment prepared!\n"
+    printf "Environment prepared! Please, re-open your terminal to update the config.\n"
 else
     printf "Environment already configured!\n"
 fi
