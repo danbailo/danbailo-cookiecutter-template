@@ -35,20 +35,19 @@ then
 make install
 ```
 
-### Checkers
+### Project commands
 
-`make check_format` - Checks code formatting.
+| Command | Description |
+|-|-|
+| `make install` | Install project as dev |
+| `make build` | Build a Docker image to run project |
+| `make format` | Format the code |
+| `make lint` | Lint the code |
+| `make check_format` | Check code format |
+| `make check_lint` | Check code lint |
+| `make check_types` | Check code types |
+| `make check_all` | Run all checkers of project |
+| `make tests` | Run tests |
+| `make clean` | Clean project cache |
 
-`make format` - Automatically formats the code.
-
-`make check_lint` - Checks the code lint.
-
-`make lint` - Formats the code by automatically correcting the lint.
-
-`make check_types` - Checks the typing hinting of the code.
-
-`make tests` - Runs the project's tests.
-
-`make check_all` - Runs all the project's "checkers" and tests signaling when everything is ok. This way, it is certain that the pull-request pipeline will be ready to go to main.
-
-All settings defined in formatting, typing, lint, etc. They are defined in the Python project configuration file - [pyproject.toml](pyproject.toml).
+All settings defined in formatting, typing and linting are defined in the Python project configuration file - [pyproject.toml](pyproject.toml).
