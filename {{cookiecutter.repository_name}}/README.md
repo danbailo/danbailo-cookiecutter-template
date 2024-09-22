@@ -1,54 +1,53 @@
 # {{cookiecutter.project_name}}
 
-[![Tests and Linting](https://github.com/{{cookiecutter.gh_username_or_gh_organization}}/{{cookiecutter.repository_name}}/actions/workflows/tests.yaml/badge.svg?branch=main)](https://github.com/{{cookiecutter.gh_username_or_gh_organization}}/{{cookiecutter.repository_name}}/actions/workflows/tests.yaml) ![Coverage Status](./assets/coverage-badge.svg)
+<p align="center">
+    <em>"{{cookiecutter.project_description}}"</em>
+</p>
+<p align="center">
+<a href="https://github.com/{{cookiecutter.gh_username_or_gh_organization}}/{{cookiecutter.repository_name}}/actions/workflows/publish.yaml" target="_blank">
+    <img src="https://github.com/{{cookiecutter.gh_username_or_gh_organization}}/{{cookiecutter.repository_name}}/actions/workflows/publish.yaml/badge.svg" alt="Test">
+</a>
+<a href="https://github.com/{{cookiecutter.gh_username_or_gh_organization}}/{{cookiecutter.repository_name}}/actions/workflows/tests.yaml?query=branch=main" target="_blank">
+    <img src="https://github.com/{{cookiecutter.gh_username_or_gh_organization}}/{{cookiecutter.repository_name}}/actions/workflows/tests.yaml/badge.svg?branch=main" alt="Tests">
+</a>
+<a href="https://github.com/{{cookiecutter.gh_username_or_gh_organization}}/{{cookiecutter.repository_name}}/actions/workflows/tests.yaml?query=branch=main" target="_blank">
+    <img src="https://codecov.io/gh/{{cookiecutter.gh_username_or_gh_organization}}/{{cookiecutter.repository_name}}/branch/main/graph/badge.svg" alt="Coverage">
+<a href="https://pypi.org/project/{{cookiecutter.repository_name}}" target="_blank">
+    <img src="https://img.shields.io/pypi/v/{{cookiecutter.repository_name}}?color=%252334D058&label=pypi%20package" alt="Package version">
+</a>
+<a href="https://pypi.org/project/{{cookiecutter.repository_name}}" target="_blank">
+    <img src="https://img.shields.io/pypi/pyversions/{{cookiecutter.repository_name}}?color=g" alt="Python Versions">
+</a>
+</p>
 
 Simple structure that I([@danbailo](https://github.com/danbailo)) like use to build projects.
 
 enjoy and... Python 🐍 for everthing 😄
 
+## Preparing project
+This project uses [uv](https://github.com/astral-sh/uv) as package and project manager. This tool also implements a `.venv` and is highly recommended execute the script [prepare_enviroment.sh](prepare_enviroment.sh) before start the devoloping.
+
+Just it run to create an alias to `python` uses the current `.venv` instead of need to run commands using `uv run ...`
+```bash
+sh prepare_enviroment.sh
+```
+
 ## Make
 The project uses a [Makefile](Makefile) to facilitate project installation, lint execution, typing and testing.
 
-### Preparing virtual enviroment
+### Project commands
 
-It is highly recommended to use virtual environments when developing Python projects.
+| Command | Description |
+|-|-|
+| `make install` | Install project |
+| `make build` | Build a Docker image to run project |
+| `make format` | Format the code |
+| `make lint` | Lint the code |
+| `make check_format` | Check code format |
+| `make check_lint` | Check code lint |
+| `make check_types` | Check code types |
+| `make check_all` | Run all checkers of project |
+| `make tests` | Run tests |
+| `make clean` | Clean project cache |
 
-### Using poetry
-
-Install [poetry](https://github.com/python-poetry/poetry) then install the project using Make.
-
-```
-make install
-```
-
-### Using pyenv
-
-Install the [prerequisites](https://github.com/pyenv/pyenv/wiki/Common-build-problems#prerequisites) and then install [pyenv](https://github.com/pyenv/pyenv-installer). After install and configure pyenv, just install the project using Make.
-
-```
-make prepare_env_pyenv
-```
-
-then
-
-```
-make install
-```
-
-### Checkers
-
-`make check_format` - Checks code formatting.
-
-`make format` - Automatically formats the code.
-
-`make check_lint` - Checks the code lint.
-
-`make lint` - Formats the code by automatically correcting the lint.
-
-`make check_types` - Checks the typing hinting of the code.
-
-`make tests` - Runs the project's tests.
-
-`make check_all` - Runs all the project's "checkers" and tests signaling when everything is ok. This way, it is certain that the pull-request pipeline will be ready to go to main.
-
-All settings defined in formatting, typing, lint, etc. They are defined in the Python project configuration file - [pyproject.toml](pyproject.toml).
+All settings defined in formatting, typing and linting are defined in the Python project configuration file - [pyproject.toml](pyproject.toml).
