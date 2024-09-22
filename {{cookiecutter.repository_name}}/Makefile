@@ -56,4 +56,4 @@ clean:
 	@rm -rf .coverage
 	@rm -rf coverage.xml	
 	@find . -name "__pycache__" -type d -exec rm -rf {} +
-	@printf "File and directory cache removed! ➡️ 🗑️ ✅\n"
+	@printf "Cache cleaned! ➡️ 🗑️ ✅\n"
