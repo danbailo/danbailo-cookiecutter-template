@@ -1,0 +1,4 @@
+services:
+  app:
+    build: .
+    command: python -m {{cookiecutter.repository_name|lower|replace("-", "_")}} execute --option "hello"
