@@ -14,7 +14,7 @@ jobs:
 
   python:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 5
 
     strategy:
       matrix:
@@ -34,7 +34,7 @@ jobs:
       with:
         version: latest
 
-    - name: Install dependencies
+    - name: Install project
       run: make install
 
     - name: Run linting check
@@ -48,3 +48,11 @@ jobs:
 
     - name: Run tests
       run: make tests
+
+    - name: Upload results to Codecov
+      if: github.ref == 'refs/heads/main'
+      uses: codecov/codecov-action@v4
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
+        file: ./coverage.xml
+        fail_ci_if_error: true
