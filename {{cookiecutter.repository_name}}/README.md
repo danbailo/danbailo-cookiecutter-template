@@ -5,7 +5,7 @@
 </p>
 <p align="center">
 <a href="https://github.com/{{cookiecutter.gh_username_or_gh_organization}}/{{cookiecutter.repository_name}}/actions/workflows/publish.yaml" target="_blank">
-    <img src="https://github.com/{{cookiecutter.gh_username_or_gh_organization}}/{{cookiecutter.repository_name}}/actions/workflows/publish.yaml/badge.svg" alt="Test">
+    <img src="https://github.com/{{cookiecutter.gh_username_or_gh_organization}}/{{cookiecutter.repository_name}}/actions/workflows/publish.yaml/badge.svg" alt="Publish">
 </a>
 <a href="https://github.com/{{cookiecutter.gh_username_or_gh_organization}}/{{cookiecutter.repository_name}}/actions/workflows/tests.yaml?query=branch=main" target="_blank">
     <img src="https://github.com/{{cookiecutter.gh_username_or_gh_organization}}/{{cookiecutter.repository_name}}/actions/workflows/tests.yaml/badge.svg?branch=main" alt="Tests">
