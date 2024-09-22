@@ -38,7 +38,3 @@ pip install cookiecutter
 ## How to use
 
 Call the `cookiecutter` in terminal passing the directory where it contains a cookiecutter template that configures the `cookiecutter.json` file.
-
-# Presenting
-
-[Presenting](https://drive.google.com/file/d/1g9EnmdVqMigHPZsoYo2OLpSchqehQJvX/view)
