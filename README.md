@@ -41,4 +41,6 @@ Call the `cookiecutter` in terminal passing the directory where it contains a co
 
 # Presenting
 
-[Presenting](https://drive.google.com/file/d/1g9EnmdVqMigHPZsoYo2OLpSchqehQJvX/view?usp=sharing)
+<video width="1024" height="768" controls>
+  <source src="assets/presenting.mp4" type="video/mp4">
+</video>
