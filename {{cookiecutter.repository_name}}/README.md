@@ -1,45 +1,45 @@
 # {{cookiecutter.project_name}}
 
-[![Tests and Linting](https://github.com/{{cookiecutter.gh_username_or_gh_organization}}/{{cookiecutter.repository_name}}/actions/workflows/tests.yaml/badge.svg?branch=main)](https://github.com/{{cookiecutter.gh_username_or_gh_organization}}/{{cookiecutter.repository_name}}/actions/workflows/tests.yaml) ![Coverage Status](./assets/coverage-badge.svg)
+<p align="center">
+    <em>"{{cookiecutter.project_description}}"</em>
+</p>
+<p align="center">
+<a href="https://github.com/{{cookiecutter.gh_username_or_gh_organization}}/{{cookiecutter.repository_name}}/actions/workflows/publish.yaml" target="_blank">
+    <img src="https://github.com/{{cookiecutter.gh_username_or_gh_organization}}/{{cookiecutter.repository_name}}/actions/workflows/publish.yaml/badge.svg" alt="Publish">
+</a>
+<a href="https://github.com/{{cookiecutter.gh_username_or_gh_organization}}/{{cookiecutter.repository_name}}/actions/workflows/tests.yaml?query=branch=main" target="_blank">
+    <img src="https://github.com/{{cookiecutter.gh_username_or_gh_organization}}/{{cookiecutter.repository_name}}/actions/workflows/tests.yaml/badge.svg?branch=main" alt="Tests">
+</a>
+<a href="https://github.com/{{cookiecutter.gh_username_or_gh_organization}}/{{cookiecutter.repository_name}}/actions/workflows/tests.yaml?query=branch=main" target="_blank">
+    <img src="https://codecov.io/gh/{{cookiecutter.gh_username_or_gh_organization}}/{{cookiecutter.repository_name}}/branch/main/graph/badge.svg" alt="Coverage">
+<a href="https://pypi.org/project/{{cookiecutter.repository_name}}" target="_blank">
+    <img src="https://img.shields.io/pypi/v/{{cookiecutter.repository_name}}?color=%252334D058&label=pypi%20package" alt="Package version">
+</a>
+<a href="https://pypi.org/project/{{cookiecutter.repository_name}}" target="_blank">
+    <img src="https://img.shields.io/pypi/pyversions/{{cookiecutter.repository_name}}?color=g" alt="Python Versions">
+</a>
+</p>
 
 Simple structure that I([@danbailo](https://github.com/danbailo)) like use to build projects.
 
 enjoy and... Python 🐍 for everthing 😄
 
+## Preparing project
+This project uses [uv](https://github.com/astral-sh/uv) as package and project manager. This tool also implements a `.venv` and is highly recommended execute the script [prepare_enviroment.sh](prepare_enviroment.sh) before start the devoloping.
+
+Just it run to create an alias to `python` uses the current `.venv` instead of need to run commands using `uv run ...`
+```bash
+sh prepare_enviroment.sh
+```
+
 ## Make
 The project uses a [Makefile](Makefile) to facilitate project installation, lint execution, typing and testing.
-
-### Preparing virtual enviroment
-
-It is highly recommended to use virtual environments when developing Python projects.
-
-### Using poetry
-
-Install [poetry](https://github.com/python-poetry/poetry) then install the project using Make.
-
-```
-make install
-```
-
-### Using pyenv
-
-Install the [prerequisites](https://github.com/pyenv/pyenv/wiki/Common-build-problems#prerequisites) and then install [pyenv](https://github.com/pyenv/pyenv-installer). After install and configure pyenv, just install the project using Make.
-
-```
-make prepare_env_pyenv
-```
-
-then
-
-```
-make install
-```
 
 ### Project commands
 
 | Command | Description |
 |-|-|
-| `make install` | Install project as dev |
+| `make install` | Install project |
 | `make build` | Build a Docker image to run project |
 | `make format` | Format the code |
 | `make lint` | Lint the code |
