@@ -1,22 +1,23 @@
 FROM --platform=linux/amd64 python:3.11-slim-bullseye AS build_amd64
 
 RUN apt-get update && apt-get install \
-		--no-install-recommends -qq -y \
-  build-essential \
-  locales \
-  git \
-  python3-pip \
-  python3-setuptools \
-  gcc \
-  g++ \
-  libpoppler-cpp-dev \
-  poppler-utils \
-  pkg-config \
-  cmake \
-  python3-opencv \
-  libopencv-dev \
-  libjpeg-dev \ 
-  libpng-dev
+    --no-install-recommends -qq -y \
+    curl \
+    ca-certificates \        
+    build-essential \
+    locales \
+    python3-pip \
+    python3-setuptools \
+    gcc \
+    g++ \
+    libpoppler-cpp-dev \
+    poppler-utils \
+    pkg-config \
+    cmake \
+    python3-opencv \
+    libopencv-dev \
+    libjpeg-dev \ 
+    libpng-dev
 
 # Configura os locales
 RUN sed -i -e 's/# \(pt_BR\.UTF-8 .*\)/\1/' /etc/locale.gen && locale-gen
