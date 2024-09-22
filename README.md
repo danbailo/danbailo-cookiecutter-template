@@ -38,3 +38,9 @@ pip install cookiecutter
 ## How to use
 
 Call the `cookiecutter` in terminal passing the directory where it contains a cookiecutter template that configures the `cookiecutter.json` file.
+
+# Presenting
+
+<video width="1366" height="768" controls>
+  <source src="assets/presenting.mp4" type="video/mp4">
+</video>
