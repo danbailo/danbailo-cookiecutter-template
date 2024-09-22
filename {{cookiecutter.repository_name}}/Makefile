@@ -53,5 +53,7 @@ clean:
 	@rm -rf .ruff_cache
 	@rm -rf .mypy_cache
 	@rm -rf .pytest_cache
+	@rm -rf .coverage
+	@rm -rf coverage.xml	
 	@find . -name "__pycache__" -type d -exec rm -rf {} +
 	@printf "File and directory cache removed! ➡️ 🗑️ ✅\n"
