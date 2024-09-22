@@ -16,6 +16,10 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
 
+    strategy:
+      matrix:
+        python: ["3.11"]
+
     steps:
     - name: Checkout Code
       uses: actions/checkout@v4
@@ -28,7 +32,7 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v5
       with:
-        python-version-file: "pyproject.toml"
+        python-version: ${{ matrix.python }}
 
     - name: Install the project
       run: make install
