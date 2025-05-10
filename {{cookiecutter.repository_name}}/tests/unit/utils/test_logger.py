@@ -1,7 +1,11 @@
 import logging
 import os
+from unittest.mock import MagicMock, patch
 
 import structlog
+from pytest import mark
+from pytest_mock import MockerFixture
+from structlog.testing import capture_logs
 
 from {{cookiecutter.repository_name|lower|replace("-", "_")}}.utils.logger import LoggerFactory, LoggerNameEnum
 
