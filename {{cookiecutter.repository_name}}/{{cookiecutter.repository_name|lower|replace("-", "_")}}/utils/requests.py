@@ -5,7 +5,7 @@ import httpx
 from httpx import AsyncClient, Response
 from tenacity import retry, retry_if_exception_type, stop_after_attempt, wait_fixed
 
-from {{cookiecutter.repository_name|lower|replace("-", "_")}}.commons.logger import Logger, LoggerFactory
+from {{cookiecutter.repository_name|lower|replace("-", "_")}}.utils.logger import Logger, LoggerFactory
 from {{cookiecutter.repository_name|lower|replace("-", "_")}}.settings import RETRY_AFTER_SECONDS, RETRY_ATTEMPTS
 
 _logger: Logger = LoggerFactory.new()

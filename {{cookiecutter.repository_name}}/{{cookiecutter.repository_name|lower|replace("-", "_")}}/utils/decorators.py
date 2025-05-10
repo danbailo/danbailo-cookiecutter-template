@@ -4,7 +4,7 @@ import time
 from functools import wraps
 from math import ceil
 
-from {{cookiecutter.repository_name|lower|replace("-", "_")}}.commons.logger import Logger, LoggerFactory
+from {{cookiecutter.repository_name|lower|replace("-", "_")}}.utils.logger import Logger, LoggerFactory
 
 logger: Logger = LoggerFactory.new()
 

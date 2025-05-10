@@ -1,7 +1,7 @@
 import typer
 
-from {{cookiecutter.repository_name|lower|replace("-", "_")}}.commons.decorators import coro
-from {{cookiecutter.repository_name|lower|replace("-", "_")}}.commons.logger import Logger, LoggerFactory
+from {{cookiecutter.repository_name|lower|replace("-", "_")}}.utils.decorators import coro
+from {{cookiecutter.repository_name|lower|replace("-", "_")}}.utils.logger import Logger, LoggerFactory
 
 logger: Logger = LoggerFactory.new()
 
