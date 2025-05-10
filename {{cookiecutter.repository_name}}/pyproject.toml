@@ -32,15 +32,12 @@ dev-dependencies = [
     "pytest-cov>=5.0.0",
     "pytest-randomly>=3.15.0",
     "mypy-extensions>=1.0.0",
+    "redis>=6.0.0",
 ]
 
 [tool.coverage.report]
 skip_empty = true
 show_missing = true
-omit = [
-    "*main*",
-    "decorators.py"
-]
 sort="Cover"
 
 [tool.ruff]
@@ -57,14 +54,11 @@ docstring-code-format = true
 max-returns = 2
 
 [tool.mypy]
-disable_error_code = [
-    "union-attr", "import-untyped", "arg-type",
-    "return-value", "return", "override",
-    "assignment", "var-annotated"
-]
+no_implicit_optional = true
 plugins = [
   "pydantic.mypy"
 ]
+check_untyped_defs = true
 
 [build-system]
 requires = ["hatchling"]
