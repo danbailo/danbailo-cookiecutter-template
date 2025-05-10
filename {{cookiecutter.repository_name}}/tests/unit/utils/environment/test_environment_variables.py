@@ -1,10 +1,10 @@
 import pytest
 
-from legalops_commons.utils.environment import (
+from {{cookiecutter.repository_name|lower|replace("-", "_")}}.utils.environment import (
     BaseEnvironmentVariables,
     Field,
 )
-from legalops_commons.utils.environment.enums import EnvironmentNameEnum
+from {{cookiecutter.repository_name|lower|replace("-", "_")}}.utils.environment.enums import EnvironmentNameEnum
 from tests.utils.environment.utils import DictBackend
 
 

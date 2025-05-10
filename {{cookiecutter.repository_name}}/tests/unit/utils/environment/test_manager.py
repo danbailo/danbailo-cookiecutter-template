@@ -2,10 +2,10 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-from legalops_commons.utils.environment import (
+from {{cookiecutter.repository_name|lower|replace("-", "_")}}.utils.environment import (
     get_environment,
 )
-from legalops_commons.utils.environment.enums import EnvironmentNameEnum
+from {{cookiecutter.repository_name|lower|replace("-", "_")}}.utils.environment.enums import EnvironmentNameEnum
 
 TEST_CASES = {
     'prod-1': (['lorem', 'ipsum', 'prod'], EnvironmentNameEnum.PROD),
@@ -38,7 +38,7 @@ TEST_CASES = {
     TEST_CASES.values(),
     ids=TEST_CASES.keys(),
 )
-@patch('legalops_commons.factories.logger.LoggerFactory.new')
+@patch('{{cookiecutter.repository_name|lower|replace("-", "_")}}.factories.logger.LoggerFactory.new')
 def test_get_environment(
     mocked_logger: MagicMock, input_data: str, expected_data: EnvironmentNameEnum
 ):

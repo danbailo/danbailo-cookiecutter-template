@@ -2,7 +2,7 @@ from typing import Any, Optional, Union
 
 from pytest import mark, raises
 
-from legalops_commons.utils.types import (
+from {{cookiecutter.repository_name|lower|replace("-", "_")}}.utils.types import (
     cast_value,
     get_type_names_from_object,
     get_types,

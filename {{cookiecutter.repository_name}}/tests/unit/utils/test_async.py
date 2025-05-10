@@ -2,7 +2,7 @@ import asyncio
 import time
 from unittest.mock import MagicMock
 
-from legalops_commons.utils.asyncs import pool
+from {{cookiecutter.repository_name|lower|replace("-", "_")}}.utils.asyncs import pool
 
 
 def test_pool():

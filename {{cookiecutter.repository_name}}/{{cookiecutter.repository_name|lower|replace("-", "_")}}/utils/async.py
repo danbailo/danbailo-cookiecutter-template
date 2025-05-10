@@ -1,7 +1,7 @@
 import asyncio
 from typing import Any, Coroutine, TypeVar
 
-from legalops_commons.factories.logger import Logger, LoggerFactory
+from {{cookiecutter.repository_name|lower|replace("-", "_")}}.factories.logger import Logger, LoggerFactory
 
 T = TypeVar('T')
 

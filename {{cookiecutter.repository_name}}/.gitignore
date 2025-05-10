@@ -166,9 +166,6 @@ cython_debug/
 # pyenv
 .python-version
 
-# legalops_commons
-legalops_commons
-
 # Visual Studio Code
 .vscode/*
 # !.vscode/settings.json

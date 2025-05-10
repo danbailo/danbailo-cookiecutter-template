@@ -2,7 +2,7 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-from legalops_commons.utils.dict import (
+from {{cookiecutter.repository_name|lower|replace("-", "_")}}.utils.dict import (
     force_all_keys_exist,
     invert_dict,
     merge_dicts,
@@ -90,7 +90,7 @@ from legalops_commons.utils.dict import (
         ),
     ],
 )
-@patch('legalops_commons.utils.dict.LoggerFactory.new')
+@patch('{{cookiecutter.repository_name|lower|replace("-", "_")}}.utils.dict.LoggerFactory.new')
 def test_update_data_from_objects(
     mocked_logger: MagicMock,
     input_data1: dict,
@@ -211,7 +211,7 @@ def test_update_data_from_objects(
         ),
     ],
 )
-@patch('legalops_commons.utils.dict.LoggerFactory.new')
+@patch('{{cookiecutter.repository_name|lower|replace("-", "_")}}.utils.dict.LoggerFactory.new')
 def test_update_data_from_objects_inside_list(
     mocked_logger: MagicMock, input_data1: dict, input_data2: list, expected_data: list
 ):

@@ -1,8 +1,8 @@
 from abc import ABC, abstractmethod
 from typing import Any
 
-from legalops_commons.factories.logger import Logger, LoggerFactory
-from legalops_commons.utils.environment.enums import EnvironmentNameEnum
+from {{cookiecutter.repository_name|lower|replace("-", "_")}}.factories.logger import Logger, LoggerFactory
+from {{cookiecutter.repository_name|lower|replace("-", "_")}}.utils.environment.enums import EnvironmentNameEnum
 
 
 class BaseBackend(ABC):

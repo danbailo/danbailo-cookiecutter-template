@@ -8,7 +8,7 @@ from unittest.mock import patch
 
 import pytest
 
-from legalops_commons.utils.decorators import (
+from {{cookiecutter.repository_name|lower|replace("-", "_")}}.utils.decorators import (
     async_timeit,
     coro,
     deprecated,
@@ -27,7 +27,7 @@ def test_coro_decorator():
     assert result == 'async mocked result'
 
 
-@patch('legalops_commons.utils.decorators.logger')
+@patch('{{cookiecutter.repository_name|lower|replace("-", "_")}}.utils.decorators.logger')
 def test_async_timeit_decorator(mock_logger):
     @async_timeit
     async def async_function():
@@ -40,7 +40,7 @@ def test_async_timeit_decorator(mock_logger):
     assert 'time elapsed to run "async_function"' in mock_logger.debug.call_args[0][0]
 
 
-@patch('legalops_commons.utils.decorators.logger')
+@patch('{{cookiecutter.repository_name|lower|replace("-", "_")}}.utils.decorators.logger')
 def test_timeit_decorator(mock_logger):
     @timeit
     def sync_function():

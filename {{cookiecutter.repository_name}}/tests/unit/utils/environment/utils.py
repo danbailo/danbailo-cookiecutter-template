@@ -1,7 +1,7 @@
 from unittest.mock import Mock
 
-from legalops_commons.utils.environment.backends import BaseBackend
-from legalops_commons.utils.environment.enums import EnvironmentNameEnum
+from {{cookiecutter.repository_name|lower|replace("-", "_")}}.utils.environment.backends import BaseBackend
+from {{cookiecutter.repository_name|lower|replace("-", "_")}}.utils.environment.enums import EnvironmentNameEnum
 
 
 class DictBackend(BaseBackend):

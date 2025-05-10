@@ -14,10 +14,10 @@ from google.cloud.secretmanager import (
 from google.cloud.secretmanager_v1.types.resources import SecretVersion
 from google.cloud.secretmanager_v1.types.service import AccessSecretVersionResponse
 
-from legalops_commons.clients.secret_manager.enums import SortingOrderEnum
-from legalops_commons.clients.secret_manager.exceptions import SecretDisabledException
-from legalops_commons.clients.secret_manager.types import SecretVersionItem
-from legalops_commons.factories.logger import Logger, LoggerFactory
+from {{cookiecutter.repository_name|lower|replace("-", "_")}}.clients.secret_manager.enums import SortingOrderEnum
+from {{cookiecutter.repository_name|lower|replace("-", "_")}}.clients.secret_manager.exceptions import SecretDisabledException
+from {{cookiecutter.repository_name|lower|replace("-", "_")}}.clients.secret_manager.types import SecretVersionItem
+from {{cookiecutter.repository_name|lower|replace("-", "_")}}.factories.logger import Logger, LoggerFactory
 
 
 class SecretManagerClient:

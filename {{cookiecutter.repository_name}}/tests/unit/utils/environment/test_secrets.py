@@ -2,7 +2,7 @@ from typing import Any
 
 import pytest
 
-from legalops_commons.utils.environment import BaseSecrets, Field
+from {{cookiecutter.repository_name|lower|replace("-", "_")}}.utils.environment import BaseSecrets, Field
 
 from .utils import DictBackend
 

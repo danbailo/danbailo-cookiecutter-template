@@ -1,16 +1,16 @@
 from pathlib import Path
 from typing import Any
 
-from legalops_commons.enums import LegalOpsClientsEnum
-from legalops_commons.factories.logger import Logger, LoggerFactory
-from legalops_commons.utils.environment.backends.base import BaseBackend
-from legalops_commons.utils.environment.backends.local_file import (
+from {{cookiecutter.repository_name|lower|replace("-", "_")}}.enums import LegalOpsClientsEnum
+from {{cookiecutter.repository_name|lower|replace("-", "_")}}.factories.logger import Logger, LoggerFactory
+from {{cookiecutter.repository_name|lower|replace("-", "_")}}.utils.environment.backends.base import BaseBackend
+from {{cookiecutter.repository_name|lower|replace("-", "_")}}.utils.environment.backends.local_file import (
     LocalFileBackend,
 )
-from legalops_commons.utils.environment.backends.secret_manager import (
+from {{cookiecutter.repository_name|lower|replace("-", "_")}}.utils.environment.backends.secret_manager import (
     SecretManagerBackend,
 )
-from legalops_commons.utils.environment.enums import EnvironmentNameEnum
+from {{cookiecutter.repository_name|lower|replace("-", "_")}}.utils.environment.enums import EnvironmentNameEnum
 
 
 class LocalSecretManagerBackend(BaseBackend):

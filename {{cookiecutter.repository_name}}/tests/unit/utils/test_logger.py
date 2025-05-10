@@ -3,7 +3,7 @@ import os
 
 import structlog
 
-from {{cookiecutter.repository_name|lower|replace("-", "_")}}.commons.logger import LoggerFactory, LoggerNameEnum
+from {{cookiecutter.repository_name|lower|replace("-", "_")}}.utils.logger import LoggerFactory, LoggerNameEnum
 
 
 def calling_loggers():
@@ -74,7 +74,7 @@ from pytest import mark
 from pytest_mock import MockerFixture
 from structlog.testing import capture_logs
 
-from legalops_commons.factories.logger import Logger, LoggerFactory, LoggerNameEnum
+from {{cookiecutter.repository_name|lower|replace("-", "_")}}.utils.logger import Logger, LoggerFactory, LoggerNameEnum
 
 
 def _emulate_division_by_zero_error(logger: Logger):
@@ -118,13 +118,13 @@ def _emulate_division_by_zero_error(logger: Logger):
     ),
     ids=('prod', 'local'),
 )
-@patch('legalops_commons.factories.logger.getenv')
-@patch('legalops_commons.factories.logger.LoggerFactory.is_configured', lambda: False)
-@patch('legalops_commons.factories.logger.LoggerFactory._logger_name', None)
-@patch('legalops_commons.factories.logger.LoggerFactory._logger_renderers', [])
-@patch('legalops_commons.factories.logger.LoggerFactory._logger_configs', None)
-@patch('legalops_commons.factories.logger.LoggerFactory._logger_level', None)
-@patch('legalops_commons.factories.logger.LoggerFactory._is_local', None)
+@patch('{{cookiecutter.repository_name|lower|replace("-", "_")}}.utils.logger.getenv')
+@patch('{{cookiecutter.repository_name|lower|replace("-", "_")}}.utils.logger.LoggerFactory.is_configured', lambda: False)
+@patch('{{cookiecutter.repository_name|lower|replace("-", "_")}}.utils.logger.LoggerFactory._logger_name', None)
+@patch('{{cookiecutter.repository_name|lower|replace("-", "_")}}.utils.logger.LoggerFactory._logger_renderers', [])
+@patch('{{cookiecutter.repository_name|lower|replace("-", "_")}}.utils.logger.LoggerFactory._logger_configs', None)
+@patch('{{cookiecutter.repository_name|lower|replace("-", "_")}}.utils.logger.LoggerFactory._logger_level', None)
+@patch('{{cookiecutter.repository_name|lower|replace("-", "_")}}.utils.logger.LoggerFactory._is_local', None)
 def test_logger_level(getenv_mock: MagicMock, environment: str, captured_logs: dict):
     getenv_mock.return_value = environment
     logger = LoggerFactory.new()

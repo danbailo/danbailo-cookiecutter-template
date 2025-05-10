@@ -3,8 +3,8 @@ from unittest.mock import MagicMock, patch
 import pytest
 from pydantic import BaseModel, ValidationError, root_validator
 
-from legalops_commons.utils.dict import force_all_keys_exist
-from legalops_commons.utils.pydantic import (
+from {{cookiecutter.repository_name|lower|replace("-", "_")}}.utils.dict import force_all_keys_exist
+from {{cookiecutter.repository_name|lower|replace("-", "_")}}.utils.pydantic import (
     get_fields_from_validation_error,
     validate_data_and_get_error_fields,
 )
@@ -25,7 +25,7 @@ def test_get_fields_from_validation_error():
     assert result == ['field1', 'field2', 'field3']
 
 
-@patch('legalops_commons.utils.pydantic.get_fields_from_validation_error')
+@patch('{{cookiecutter.repository_name|lower|replace("-", "_")}}.utils.pydantic.get_fields_from_validation_error')
 def test_validate_data_and_get_error_fields_when_failure_exception(
     mock_get_fields_from_validation_error: MagicMock,
 ):

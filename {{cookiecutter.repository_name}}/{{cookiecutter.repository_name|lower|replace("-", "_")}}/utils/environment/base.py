@@ -1,9 +1,9 @@
 from dataclasses import dataclass
 from typing import Any, get_type_hints
 
-from legalops_commons.utils.environment.backends import BaseBackend
-from legalops_commons.utils.environment.enums import EnvironmentNameEnum
-from legalops_commons.utils.types import (
+from {{cookiecutter.repository_name|lower|replace("-", "_")}}.utils.environment.backends import BaseBackend
+from {{cookiecutter.repository_name|lower|replace("-", "_")}}.utils.environment.enums import EnvironmentNameEnum
+from {{cookiecutter.repository_name|lower|replace("-", "_")}}.utils.types import (
     cast_value,
     get_types,
 )
