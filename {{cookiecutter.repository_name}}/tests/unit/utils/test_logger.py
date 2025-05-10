@@ -38,7 +38,7 @@ def test_logger_factory():
     LOGGER_NAME = os.getenv('LOGGER_NAME') or 'PROD'
 
     if LOGGER_NAME == 'PROD':
-        assert LoggerFactory.logger_name() == LoggerNameEnum.prod
+        assert LoggerFactory.logger_name() == LoggerNameEnum.PROD
         assert LoggerFactory.logger_level() == logging.INFO
         for renderer in LoggerFactory.logger_renderer():
             assert isinstance(
@@ -95,7 +95,7 @@ def _emulate_division_by_zero_error(logger: Logger):
     ('environment', 'captured_logs'),
     (
         (
-            LoggerNameEnum.prod,
+            LoggerNameEnum.PROD,
             [
                 {'event': 'testeee', 'foo': 'foo', 'log_level': 'info'},
                 {'event': 'deu erro!', 'exc_info': True, 'log_level': 'error'},
@@ -105,7 +105,7 @@ def _emulate_division_by_zero_error(logger: Logger):
             ],
         ),
         (
-            LoggerNameEnum.local,
+            LoggerNameEnum.LOCAL,
             [
                 {'event': 'testeee', 'foo': 'foo', 'log_level': 'info'},
                 {'event': 'deu erro!', 'exc_info': True, 'log_level': 'error'},

@@ -31,7 +31,7 @@ class LoggerFactory:
         if cls._logger_name is not None:
             return cls._logger_name
 
-        cls._logger_name = getenv('LOGGER_NAME', LoggerNameEnum.prod).upper()
+        cls._logger_name = getenv('LOGGER_NAME', LoggerNameEnum.PROD).upper()
         return cls._logger_name
 
     @classmethod
@@ -39,7 +39,7 @@ class LoggerFactory:
         if cls._is_local is not None:
             return cls._is_local
 
-        cls._is_local = cls.logger_name() == LoggerNameEnum.local
+        cls._is_local = cls.logger_name() == LoggerNameEnum.LOCAL
         return cls._is_local
 
     @classmethod
