@@ -121,7 +121,7 @@ celerybeat.pid
 *.sage.py
 
 # Environments
-.env
+.env*
 .venv
 env/
 venv/
@@ -163,8 +163,55 @@ cython_debug/
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
 
-# vscode
-.vscode
+# pyenv
+.python-version
 
-# debug file
-debug*.py
+# legalops_commons
+legalops_commons
+
+# Visual Studio Code
+.vscode/*
+# !.vscode/settings.json
+# !.vscode/tasks.json
+# !.vscode/launch.json
+# !.vscode/extensions.json
+# !.vscode/*.code-snippets
+
+# Local History for Visual Studio Code
+.history/
+
+# Built Visual Studio Code Extensions
+*.vsix
+
+# General
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Icon must end with two \r
+Icon
+
+
+# Thumbnails
+._*
+
+# Files that might appear in the root of a volume
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# Directories potentially created on remote AFP share
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+# dry-run helm
+helm-output-dry-run.yaml
+helm/charts/charts
+helm/charts/Chart.lock

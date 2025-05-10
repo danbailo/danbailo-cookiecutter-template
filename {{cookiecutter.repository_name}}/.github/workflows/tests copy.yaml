@@ -1,4 +1,4 @@
-name: Tests and Linting
+name: Linting and Tests
 
 on:
   push:
@@ -14,7 +14,19 @@ jobs:
 
   python:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 20
+    permissions:
+      contents: 'write'
+      id-token: 'write'
+
+    services:
+      camunda:
+        image: camunda/camunda-bpm-platform:7.17.0
+        ports:
+          - 8080:8080
+        options: >
+          --health-cmd="curl --fail http://localhost:8080/camunda-welcome/index.html || exit 1"
+
 
     strategy:
       matrix:
@@ -24,17 +36,17 @@ jobs:
     - name: Checkout Code
       uses: actions/checkout@v4
 
-    - name: Install uv
-      uses: astral-sh/setup-uv@v2
-      with:
-        version: latest
-
-    - name: Set up Python
-      uses: actions/setup-python@v5
+    - name: Setup Python
+      uses: actions/setup-python@v4
       with:
         python-version: ${{ matrix.python }}
 
-    - name: Install the project
+    - name: Setup Poetry
+      uses: snok/install-poetry@v1
+      with:
+        version: "1.8.3"
+
+    - name: Install dependencies
       run: make install
 
     - name: Run linting check
@@ -47,24 +59,20 @@ jobs:
       run: make check_types
 
     - name: Run tests
+      env:
+        LOGGER_NAME: local
+        TZ: America/Sao_Paulo
       run: make tests
 
-    - name: Upload results to Codecov
-      if: github.ref == 'refs/heads/main' and ${{ matrix.python == '3.13' }}
-      uses: codecov/codecov-action@v4
-      with:
-        token: ${{ secrets.CODECOV_TOKEN }}
-        file: ./coverage.xml
-        fail_ci_if_error: true
-
+    # TODO: Podemos fazer isso de forma mais dinâmica. Isso serve para corrigir concorrências para escrever esse arquivo.
     - name: Update coverage badge if necessary when last version
       if: ${{ matrix.python == '3.13' }}
       uses: stefanzweifel/git-auto-commit-action@v5
       with:
         commit_message: Updated coverage badge
-        file_pattern: 'coverage.svg'
+        file_pattern: 'assets/coverage-badge.svg'
         skip_fetch: false
-        skip_checkout: false        
+        skip_checkout: false
 
   kubernetes:
     runs-on: ubuntu-latest
@@ -80,4 +88,4 @@ jobs:
         version: 5.0.0
 
     - name: Run kubernetes checks
-      run: make kubernetes_check        
+      run: make kubernetes_check

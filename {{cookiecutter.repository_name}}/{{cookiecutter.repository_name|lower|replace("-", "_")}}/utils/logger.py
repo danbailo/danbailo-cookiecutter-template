@@ -11,18 +11,20 @@ Logger = structlog.types.FilteringBoundLogger
 
 
 class LoggerNameEnum(StrEnum):
-    prod = 'prod'
-    local = 'local'
+    PROD = 'PROD'
+    LOCAL = 'LOCAL'
 
 
 class LoggerFactory:
-    is_configured: bool = False
-
     _logger_name: str = None
     _logger_renderers: list = []
     _logger_configs: dict | None = None
     _logger_level: int = None
     _is_local: bool = None
+
+    @classmethod
+    def is_configured(cls) -> bool:
+        return structlog.is_configured()
 
     @classmethod
     def logger_name(cls) -> str:
@@ -95,9 +97,8 @@ class LoggerFactory:
 
     @classmethod
     def configure(cls):
-        if not cls.is_configured:
-            structlog.configure_once(**cls.logger_configs())
-            cls.is_configured = True
+        if not cls.is_configured():
+            structlog.configure(**cls.logger_configs())
 
     @classmethod
     def new(cls) -> Logger:
