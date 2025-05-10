@@ -1,5 +1,4 @@
 from contextlib import contextmanager
-from dataclasses import dataclass
 from datetime import datetime, timedelta
 from time import sleep
 
@@ -8,6 +7,7 @@ from redis import StrictRedis
 from {{cookiecutter.repository_name|lower|replace("-", "_")}}.utils.logger import Logger, LoggerFactory
 from {{cookiecutter.repository_name|lower|replace("-", "_")}}.utils.redis.config import RedisKeysConfig
 from {{cookiecutter.repository_name|lower|replace("-", "_")}}.utils.redis.exceptions import MaxWaitTimeExceeded
+
 
 class RedisSemaphore:
     def __init__(

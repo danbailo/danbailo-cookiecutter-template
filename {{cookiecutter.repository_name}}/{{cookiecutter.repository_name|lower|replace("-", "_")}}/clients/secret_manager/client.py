@@ -370,4 +370,3 @@ class SecretManagerClient:
                 request={'parent': parent, 'filter': filter}
             )
         ]
-

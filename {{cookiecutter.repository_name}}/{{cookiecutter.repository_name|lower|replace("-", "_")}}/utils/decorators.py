@@ -4,10 +4,10 @@ import inspect
 import os
 import pickle
 import signal
+import time
 import warnings
 from functools import wraps
 from math import ceil
-import time
 from typing import Callable, TypeVar
 
 from {{cookiecutter.repository_name|lower|replace("-", "_")}}.utils.logger import Logger, LoggerFactory

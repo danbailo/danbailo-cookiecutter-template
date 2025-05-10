@@ -18,7 +18,7 @@ class DictTyper:
             to_return = eval(value)
         except Exception:
             raise Exception(
-                f'Não foi possível converter o valor num objeto! ' f'- valor: {value}'
+                f'Não foi possível converter o valor num objeto! - valor: {value}'
             )
 
         if not isinstance(to_return, dict):

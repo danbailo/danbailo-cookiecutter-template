@@ -1,7 +1,7 @@
 from unittest.mock import MagicMock, patch
 
 import pytest
-from pydantic import BaseModel, ValidationError, root_validator
+from pydantic import BaseModel, ValidationError, model_validator
 
 from {{cookiecutter.repository_name|lower|replace("-", "_")}}.utils.dict import force_all_keys_exist
 from {{cookiecutter.repository_name|lower|replace("-", "_")}}.utils.pydantic import (
@@ -97,7 +97,7 @@ def test_validate_data_and_get_error_fields_parametrized(
         field3: str
         field4: str
 
-        @root_validator(pre=True, allow_reuse=True)
+        @model_validator(mode='before')
         def validate_dependent_fields(cls, root: dict) -> dict:
             # Configuração necessária para rodar os testes e injetar valores parametrizados.
             root = force_all_keys_exist(root, *input_keys_to_validate)
@@ -124,7 +124,7 @@ def test_validate_data_and_get_error_fields_with_various_dependent_fields():
         field7: str
         field8: str
 
-        @root_validator(pre=True)
+        @model_validator(mode='before')
         def validate_dependent_fields(cls, root: dict) -> dict:
             root = force_all_keys_exist(root, 'field1', 'field2', 'field3')
             root = force_all_keys_exist(root, 'field3', 'field5')
