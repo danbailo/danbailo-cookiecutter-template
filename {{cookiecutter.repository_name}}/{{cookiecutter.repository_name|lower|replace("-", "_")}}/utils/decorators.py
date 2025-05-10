@@ -7,7 +7,7 @@ import signal
 import warnings
 from functools import wraps
 from math import ceil
-from time import time
+import time
 from typing import Callable, TypeVar
 
 from {{cookiecutter.repository_name|lower|replace("-", "_")}}.utils.logger import Logger, LoggerFactory
