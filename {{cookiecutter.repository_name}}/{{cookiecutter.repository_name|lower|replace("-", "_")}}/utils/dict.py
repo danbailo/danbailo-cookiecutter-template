@@ -2,7 +2,7 @@ from collections.abc import Hashable
 from copy import deepcopy
 from typing import TypeVar
 
-from {{cookiecutter.repository_name|lower|replace("-", "_")}}.factories.logger import LoggerFactory
+from {{cookiecutter.repository_name|lower|replace("-", "_")}}.utils.logger import LoggerFactory
 
 KT = TypeVar('KT')
 VT = TypeVar('VT')

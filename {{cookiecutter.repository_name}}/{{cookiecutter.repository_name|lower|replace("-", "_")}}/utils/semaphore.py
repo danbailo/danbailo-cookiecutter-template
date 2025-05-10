@@ -6,7 +6,7 @@ from time import sleep
 from redis import StrictRedis
 
 from {{cookiecutter.repository_name|lower|replace("-", "_")}}.exceptions import MaxWaitTimeExceeded
-from {{cookiecutter.repository_name|lower|replace("-", "_")}}.factories.logger import Logger, LoggerFactory
+from {{cookiecutter.repository_name|lower|replace("-", "_")}}.utils.logger import Logger, LoggerFactory
 
 
 @dataclass

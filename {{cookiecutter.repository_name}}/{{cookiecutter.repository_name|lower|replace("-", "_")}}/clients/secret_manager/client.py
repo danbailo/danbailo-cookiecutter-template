@@ -17,7 +17,7 @@ from google.cloud.secretmanager_v1.types.service import AccessSecretVersionRespo
 from {{cookiecutter.repository_name|lower|replace("-", "_")}}.clients.secret_manager.enums import SortingOrderEnum
 from {{cookiecutter.repository_name|lower|replace("-", "_")}}.clients.secret_manager.exceptions import SecretDisabledException
 from {{cookiecutter.repository_name|lower|replace("-", "_")}}.clients.secret_manager.types import SecretVersionItem
-from {{cookiecutter.repository_name|lower|replace("-", "_")}}.factories.logger import Logger, LoggerFactory
+from {{cookiecutter.repository_name|lower|replace("-", "_")}}.utils.logger import Logger, LoggerFactory
 
 
 class SecretManagerClient:

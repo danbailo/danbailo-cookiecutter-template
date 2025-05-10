@@ -1,7 +1,6 @@
 from requests import Response
 
 from {{cookiecutter.repository_name|lower|replace("-", "_")}}.utils.logger import Logger, LoggerFactory
-from {{cookiecutter.repository_name|lower|replace("-", "_")}}.utils import tenacity as tenacity_utils
 
 
 class SlackWebhookClient:

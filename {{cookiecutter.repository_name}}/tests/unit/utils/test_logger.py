@@ -35,9 +35,9 @@ def test_logger(log):
 
 
 def test_logger_factory():
-    LOGGER_NAME = os.getenv('LOGGER_NAME') or 'prod'
+    LOGGER_NAME = os.getenv('LOGGER_NAME') or 'PROD'
 
-    if LOGGER_NAME == 'prod':
+    if LOGGER_NAME == 'PROD':
         assert LoggerFactory.logger_name() == LoggerNameEnum.prod
         assert LoggerFactory.logger_level() == logging.INFO
         for renderer in LoggerFactory.logger_renderer():
@@ -52,7 +52,7 @@ def test_logger_factory():
         assert isinstance(configs['logger_factory'], structlog.PrintLoggerFactory)
         assert len(configs['processors']) == 8
 
-    elif LOGGER_NAME == 'local':
+    elif LOGGER_NAME == 'LOCAL':
         assert LoggerFactory.logger_level() == logging.DEBUG
         for renderer in LoggerFactory.logger_renderer():
             assert isinstance(renderer, structlog.dev.ConsoleRenderer)
@@ -116,7 +116,7 @@ def _emulate_division_by_zero_error(logger: Logger):
             ],
         ),
     ),
-    ids=('prod', 'local'),
+    ids=('PROD', 'LOCAL'),
 )
 @patch('{{cookiecutter.repository_name|lower|replace("-", "_")}}.utils.logger.getenv')
 @patch('{{cookiecutter.repository_name|lower|replace("-", "_")}}.utils.logger.LoggerFactory.is_configured', lambda: False)

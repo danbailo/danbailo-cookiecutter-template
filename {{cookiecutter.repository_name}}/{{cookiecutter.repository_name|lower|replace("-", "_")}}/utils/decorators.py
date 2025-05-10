@@ -82,7 +82,7 @@ from functools import wraps
 from math import ceil
 from typing import Callable, TypeVar
 
-from {{cookiecutter.repository_name|lower|replace("-", "_")}}.factories.logger import Logger, LoggerFactory
+from {{cookiecutter.repository_name|lower|replace("-", "_")}}.utils.logger import Logger, LoggerFactory
 
 logger: Logger = LoggerFactory.new()
 
