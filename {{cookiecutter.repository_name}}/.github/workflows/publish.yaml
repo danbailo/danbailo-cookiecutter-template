@@ -17,7 +17,7 @@ jobs:
 
     environment:
       name: pypi
-      url: https://pypi.org/p/bpmn-parser
+      url: https://pypi.org/p/{{cookiecutter.repository_name}}
 
     permissions:
       contents: 'write'
@@ -40,50 +40,43 @@ jobs:
     - name: Install dependencies
       run: make install
 
-    - name: Bump version
-      id: bump_version
+    - name: Tag and push version
       run: |
-        # Atualiza a branch com a main
-        git pull origin main
+        TAG_VERSION="v$(poetry version -s)"
+        if git rev-parse "$TAG_VERSION" >/dev/null 2>&1; then
+            echo "Tag already exists: $TAG_VERSION"
+            echo "CREATED_TAG=false" >> $GITHUB_ENV
+        else
+            echo "Creating tag $TAG_VERSION ..."
+            git tag "$TAG_VERSION"
+            git push origin tag $TAG_VERSION
+            echo "Tag $TAG_VERSION created and pushed with successfully!"
 
-        # Incrementa a versão (altere 'patch' para 'minor' ou 'major' conforme necessário)
-        poetry version patch
+            echo "TAG_VERSION=$TAG_VERSION" >> $GITHUB_ENV
+            echo "CREATED_TAG=true" >> $GITHUB_ENV
+        fi
 
-        # Captura a nova versão
-        NEW_VERSION=$(poetry version -s)
-
-        # Escreve a nova versão no contexto do GitHub Actions
-        echo "NEW_VERSION=$NEW_VERSION" >> $GITHUB_OUTPUT
-
-        # Adiciona e commita as mudanças
-        git config --local user.name "github-actions[bot]"
-        git config --local user.email "github-actions[bot]@users.noreply.github.com"
-        git add pyproject.toml
-        git commit -m "Bump version to $NEW_VERSION"
-        
-        # Cria a tag
-        git tag v$NEW_VERSION
-
-    - name: Push changes
-      uses: ad-m/github-push-action@v0.6.0
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        branch: main
-        tags: true
+    - name: Echo enviroment variables created in runtime
+      run: |
+        echo "CREATED_TAG: ${{ env.CREATED_TAG }}"
+        echo "TAG_VERSION: ${{ env.TAG_VERSION }}"
 
     - name: Create GitHub Release
+      if: ${{ env.CREATED_TAG == 'true' }}
       uses: ncipollo/release-action@v1
       with:
-        tag: v${{ steps.bump_version.outputs.NEW_VERSION }}
-        name: Release v${{ steps.bump_version.outputs.NEW_VERSION }}
+        tag: ${{ env.TAG_VERSION }}
+        name: Release ${{ env.TAG_VERSION }}
         body: |
           ## Changes
-          - Bumped version to v${{ steps.bump_version.outputs.NEW_VERSION }}
           ${{ github.event.pull_request.body }}
         token: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Build package
+      if: ${{ env.CREATED_TAG == 'true' }}
       run: poetry build
 
-    - name: Publish package distributions to PyPI
+    - name: Publish package
+      if: ${{ env.CREATED_TAG == 'true' }}
       uses: pypa/gh-action-pypi-publish@release/v1
+

@@ -1,4 +1,4 @@
-name: Tests and Linting
+name: Linting and Tests
 
 on:
   push:
@@ -14,8 +14,12 @@ jobs:
 
   python:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
-
+    timeout-minutes: 10
+    
+    permissions:
+      contents: 'write'
+      id-token: 'write'
+    
     strategy:
       matrix:
         python: ["3.11", "3.12", "3.13"]
@@ -36,6 +40,9 @@ jobs:
 
     - name: Install the project
       run: make install
+
+    - name: Run vulnerabilities check
+      run: make check_vulnerabilities
 
     - name: Run linting check
       run: make check_lint
