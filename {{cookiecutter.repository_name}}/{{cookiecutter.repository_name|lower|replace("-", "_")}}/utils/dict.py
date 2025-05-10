@@ -1,6 +1,6 @@
 from collections.abc import Hashable
 from copy import deepcopy
-from typing import TypeVar
+from typing import Any, TypeVar
 
 from {{cookiecutter.repository_name|lower|replace("-", "_")}}.utils.logger import LoggerFactory
 
@@ -8,13 +8,13 @@ KT = TypeVar('KT')
 VT = TypeVar('VT')
 
 
-def update_data_from_objects(data1: dict, data2: dict | list) -> dict:
+def update_data_from_objects(data1: dict, data2: dict | list) -> dict[Any, Any]:
     """Recebe dois objetos, onde o primeiro obrigatoriamente é um `dict` e o segundo
     podendo ser um `dict` ou um `list`, e retorna um novo `dict` considerando os dados
     do `dict2` mais a esquerda e `dict1` mais a direita.
     """
     logger = LoggerFactory.new()
-    to_return = {}
+    to_return: dict[Any, Any] = {}
     if isinstance(data2, dict):
         to_return |= data2 | data1
     elif isinstance(data2, list):

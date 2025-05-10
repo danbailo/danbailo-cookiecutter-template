@@ -4,7 +4,7 @@ from redis import Connection, ConnectionPool, SSLConnection, StrictRedis
 
 
 class RedisConnectionFactory:
-    _pool: ConnectionPool = None
+    _pool: ConnectionPool | None = None
     _ssl_environ: str = 'SSL_CERT_FILE'
     _ca_path: str = '/tmp/redis_ca.pem'
 

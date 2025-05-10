@@ -350,6 +350,7 @@ class SecretManagerClient:
         for version in versions:
             if version.status == 1:
                 return version
+        return None
 
     def list(
         self,
@@ -370,21 +371,3 @@ class SecretManagerClient:
             )
         ]
 
-    # DEPRECATED
-    def access_secret_version(
-        self,
-        secret: str,
-        project_id: str = 'digestojud',
-        version: str = 'latest',
-        is_json: bool = False,
-        raise_exc: bool = True,
-    ):
-        self.logger.warning(
-            'Método depreciado! Utilize o método `get` em vez de `access_secret_version`!'
-        )
-        return self.get(
-            secret,
-            version,
-            project_id,
-            raise_exc,
-        )

@@ -1,4 +1,4 @@
-from requests import Response
+import httpx
 
 from {{cookiecutter.repository_name|lower|replace("-", "_")}}.utils.logger import Logger, LoggerFactory
 
@@ -24,10 +24,10 @@ class SlackWebhookClient:
         }
         return payload
 
-    def send_message(self, webhook_url: str, message: str) -> Response:
+    def send_message(self, webhook_url: str, message: str) -> httpx.Response:
         data = self.get_message_request_body(message)
 
-        response = requests.post(webhook_url, json=data)
+        response = httpx.post(webhook_url, json=data)
         response.raise_for_status()
 
         self.logger.debug('Mensagem enviada com sucesso!', data=data)

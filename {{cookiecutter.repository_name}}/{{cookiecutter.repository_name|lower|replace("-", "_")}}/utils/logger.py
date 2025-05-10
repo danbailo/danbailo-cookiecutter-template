@@ -16,11 +16,11 @@ class LoggerNameEnum(StrEnum):
 
 
 class LoggerFactory:
-    _logger_name: str = None
+    _logger_name: LoggerNameEnum | None = None
     _logger_renderers: list = []
     _logger_configs: dict | None = None
-    _logger_level: int = None
-    _is_local: bool = None
+    _logger_level: int | None = None
+    _is_local: bool | None = None
 
     @classmethod
     def is_configured(cls) -> bool:

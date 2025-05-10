@@ -5,16 +5,9 @@ from time import sleep
 
 from redis import StrictRedis
 
-from {{cookiecutter.repository_name|lower|replace("-", "_")}}.exceptions import MaxWaitTimeExceeded
 from {{cookiecutter.repository_name|lower|replace("-", "_")}}.utils.logger import Logger, LoggerFactory
-
-
-@dataclass
-class RedisKeysConfig:
-    prefix: str = ''
-    separator: str = ':'
-    ttl_seconds: int = 180
-
+from {{cookiecutter.repository_name|lower|replace("-", "_")}}.utils.redis.config import RedisKeysConfig
+from {{cookiecutter.repository_name|lower|replace("-", "_")}}.utils.redis.exceptions import MaxWaitTimeExceeded
 
 class RedisSemaphore:
     def __init__(
