@@ -1,0 +1,58 @@
+site_name: {{cookiecutter.project_name}}
+repo_name: {{cookiecutter.gh_username_or_gh_organization}}/{{cookiecutter.repository_name}}
+repo_url: https://github.com/{{cookiecutter.gh_username_or_gh_organization}}/{{cookiecutter.repository_name}}
+site_description: {{cookiecutter.project_description}}
+site_url: https://{{cookiecutter.gh_username_or_gh_organization}}.github.io/{{cookiecutter.repository_name}}
+
+theme:
+  name: material
+  icon:
+    logo: fontawesome/solid/window-restore
+  palette:
+    - scheme: default
+      primary: green
+      accent: teal
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: green
+      accent: teal
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - search.suggest
+    - content.code.copy
+
+nav:
+  - Introduction: index.md
+
+markdown_extensions:
+  - admonition
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+
+plugins:
+  - social
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          selection:
+            docstring_style: "google"
+
+extra_css:
+  - css/termynal.css
+  - css/custom.css
+
+extra_javascript:
+  - js/termynal.js
+  - js/custom.js  

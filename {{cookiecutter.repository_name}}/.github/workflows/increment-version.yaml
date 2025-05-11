@@ -1,0 +1,80 @@
+name: Increment version
+
+on:
+  pull_request:
+    types: [opened, edited]
+    branches:
+      - main
+
+jobs:
+  increment-version:
+    if: github.event.action == 'opened' || (github.event.action == 'edited' && github.event.changes.title)
+    
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+      
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+
+      - name: "Set up Python"
+        uses: actions/setup-python@v5
+        with:
+          python-version-file: "pyproject.toml"
+  
+      - name: Install dependencies
+        run: make install
+
+      - name: Get PR
+        id: pr
+        uses: jwalton/gh-find-current-pr@v1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Get PR type
+        id: pr-type
+        run: |
+          PR_TYPE=$(echo "${{ steps.pr.outputs.title }}" | awk '{print $1}')
+          PR_TYPE=$(echo $PR_TYPE | sed 's/://g')
+          echo "PR_TYPE=$PR_TYPE" >> $GITHUB_ENV
+
+      - name: Bump uv version
+        run: |
+          shopt -s nocasematch
+
+          PROJECT_VERSION=$(uv version --short)
+          MAJOR=$(echo $PROJECT_VERSION | cut -d. -f1)
+          MINOR=$(echo $PROJECT_VERSION | cut -d. -f2)
+          PATCH=$(echo $PROJECT_VERSION | cut -d. -f3)
+
+          if [[ $PR_TYPE =~ breaking[[:space:]]change ]]; then
+            MAJOR=$((MAJOR + 1))
+            MINOR=0
+            PATCH=0
+          elif [[ "$PR_TYPE" =~ feat ]]; then
+            MINOR=$((MINOR + 1))
+            PATCH=0
+          elif [[ "$PR_TYPE" =~ fix|hotfix|patch ]]; then
+            PATCH=$((PATCH + 1))
+          fi
+
+          NEW_VERSION="$MAJOR.$MINOR.$PATCH"
+          uv version $NEW_VERSION
+          echo "NEW_VERSION=$NEW_VERSION" >> $GITHUB_ENV
+
+      - name: Commit and push changes
+        run: |
+          git config --local user.name "github-actions[bot]"
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git add pyproject.toml
+          if ! git diff --cached --quiet; then
+            git commit -m "Bump project version to $NEW_VERSION"
+            git push origin HEAD:${{ github.event.pull_request.head.ref }}
+          else
+            echo "No changes to commit"
+          fi
+          

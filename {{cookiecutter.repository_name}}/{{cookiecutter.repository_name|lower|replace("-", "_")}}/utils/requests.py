@@ -5,8 +5,8 @@ import httpx
 from httpx import AsyncClient, Response
 from tenacity import retry, retry_if_exception_type, stop_after_attempt, wait_fixed
 
-from {{cookiecutter.repository_name|lower|replace("-", "_")}}.commons.logger import Logger, LoggerFactory
 from {{cookiecutter.repository_name|lower|replace("-", "_")}}.settings import RETRY_AFTER_SECONDS, RETRY_ATTEMPTS
+from {{cookiecutter.repository_name|lower|replace("-", "_")}}.utils.logger import Logger, LoggerFactory
 
 _logger: Logger = LoggerFactory.new()
 
@@ -34,7 +34,7 @@ async def make_async_request(
     params: dict | None = None,
     headers: dict | None = None,
     authorization: str | None = None,
-    files: list[tuple[str, tuple[str, bytes]]] = None,
+    files: list[tuple[str, tuple[str, bytes]]] | None = None,
     timeout: int = 120,
     auth: tuple[str, str] | None = None,
     follow_redirects: bool = True,
@@ -93,7 +93,7 @@ def make_request(
     params: dict | None = None,
     headers: dict | None = None,
     authorization: str | None = None,
-    files: list[tuple[str, tuple[str, bytes]]] = None,
+    files: list[tuple[str, tuple[str, bytes]]] | None = None,
     timeout: int = 120,
     auth: Optional[tuple[str, str]] = None,
     follow_redirects: bool = True,

@@ -43,6 +43,7 @@ The project uses a [Makefile](Makefile) to facilitate project installation, lint
 | `make build` | Build a Docker image to run project |
 | `make format` | Format the code |
 | `make lint` | Lint the code |
+| `make check_vulnerabilities` | Check vulnerabilities |
 | `make check_format` | Check code format |
 | `make check_lint` | Check code lint |
 | `make check_types` | Check code types |

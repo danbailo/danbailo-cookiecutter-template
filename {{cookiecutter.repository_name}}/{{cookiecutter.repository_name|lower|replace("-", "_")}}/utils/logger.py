@@ -11,25 +11,28 @@ Logger = structlog.types.FilteringBoundLogger
 
 
 class LoggerNameEnum(StrEnum):
-    prod = 'prod'
-    local = 'local'
+    PROD = 'PROD'
+    LOCAL = 'LOCAL'
 
 
 class LoggerFactory:
-    is_configured: bool = False
-
-    _logger_name: str = None
+    _logger_name: LoggerNameEnum | None = None
     _logger_renderers: list = []
     _logger_configs: dict | None = None
-    _logger_level: int = None
-    _is_local: bool = None
+    _logger_level: int | None = None
+    _is_local: bool | None = None
 
     @classmethod
-    def logger_name(cls) -> str:
+    def is_configured(cls) -> bool:
+        return structlog.is_configured()
+
+    @classmethod
+    def get_logger_name(cls) -> str:
         if cls._logger_name is not None:
             return cls._logger_name
 
-        cls._logger_name = getenv('LOGGER_NAME', LoggerNameEnum.prod).lower()
+        logger_name = (getenv('LOGGER_NAME', 'PROD')).upper()
+        cls._logger_name = LoggerNameEnum(logger_name)
         return cls._logger_name
 
     @classmethod
@@ -37,11 +40,11 @@ class LoggerFactory:
         if cls._is_local is not None:
             return cls._is_local
 
-        cls._is_local = cls.logger_name() == LoggerNameEnum.local
+        cls._is_local = cls.get_logger_name() == LoggerNameEnum.LOCAL
         return cls._is_local
 
     @classmethod
-    def logger_level(cls) -> int:
+    def get_logger_level(cls) -> int:
         if cls._logger_level is not None:
             return cls._logger_level
 
@@ -53,7 +56,7 @@ class LoggerFactory:
         return cls._logger_level
 
     @classmethod
-    def logger_renderer(cls) -> list:
+    def get_logger_renderer(cls) -> list:
         if cls._logger_renderers:
             return cls._logger_renderers
 
@@ -66,7 +69,7 @@ class LoggerFactory:
         return cls._logger_renderers
 
     @classmethod
-    def logger_configs(cls):
+    def get_logger_configs(cls):
         if cls._logger_configs:
             return cls._logger_configs
 
@@ -84,9 +87,11 @@ class LoggerFactory:
                         structlog.processors.CallsiteParameter.LINENO,
                     ]
                 ),
-                *cls.logger_renderer(),
+                *cls.get_logger_renderer(),
             ],
-            'wrapper_class': structlog.make_filtering_bound_logger(cls.logger_level()),
+            'wrapper_class': structlog.make_filtering_bound_logger(
+                cls.get_logger_level()
+            ),
             'context_class': dict,
             'logger_factory': structlog.PrintLoggerFactory(),
             'cache_logger_on_first_use': False,
@@ -95,9 +100,8 @@ class LoggerFactory:
 
     @classmethod
     def configure(cls):
-        if not cls.is_configured:
-            structlog.configure_once(**cls.logger_configs())
-            cls.is_configured = True
+        if not cls.is_configured():
+            structlog.configure(**cls.get_logger_configs())
 
     @classmethod
     def new(cls) -> Logger:
