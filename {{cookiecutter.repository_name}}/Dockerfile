@@ -1,4 +1,4 @@
-FROM --platform=linux/amd64 python:3.11-slim-bullseye AS build_amd64
+FROM --platform=linux/amd64 python:3.13-slim-bullseye AS build_amd64
 
 RUN apt-get update && apt-get install \
   --no-install-recommends -qq -y \
