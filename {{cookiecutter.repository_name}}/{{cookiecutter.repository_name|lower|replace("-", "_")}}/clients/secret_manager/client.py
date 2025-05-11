@@ -53,7 +53,7 @@ class SecretManagerClient:
         """Constrói o nome completo do secret como o manager o manipula no GCP.
 
         Args:
-            secret (str): nome do secret no manager, ex: LEGALOPS_CLIENTS_ZOHO_VAULT.
+            secret (str): nome do secret no manager, ex: MY_AWESOME_SECRET.
             version (str): número da versão do secret, "latest" por padrão.
             project_id (str): ID do projeto, podendo ser o nome por extenso ou valor numérico.
         """
@@ -67,7 +67,7 @@ class SecretManagerClient:
         """Constrói o diretório do secret como o manager manipula no GCP.
 
         Args:
-            secret (str): nome do secret no manager, ex: LEGALOPS_CLIENTS_ZOHO_VAULT.
+            secret (str): nome do secret no manager, ex: MY_AWESOME_SECRET.
             project_id (str): ID do projeto, podendo ser o nome por extenso ou valor numérico.
         """
         return f'projects/{project_id}/secrets/{secret}'
@@ -93,7 +93,7 @@ class SecretManagerClient:
         """Constrói o nome completo do secret como o manager o manipula no GCP.
 
         Args:
-            secret (str): nome do secret no manager, ex: LEGALOPS_CLIENTS_ZOHO_VAULT.
+            secret (str): nome do secret no manager, ex: MY_AWESOME_SECRET.
             version (str): número da versão do secret, "latest" por padrão.
             project_id (str): ID do projeto, podendo ser o nome por extenso ou valor numérico.
             raise_exc (bool): flag indicando se deve lançar exception caso ocorra alguma.
@@ -148,7 +148,7 @@ class SecretManagerClient:
         """Adiciona uma nova versão ao secret.
 
         Args:
-            secret (str): nome do secret no manager, ex: LEGALOPS_CLIENTS_ZOHO_VAULT.
+            secret (str): nome do secret no manager, ex: MY_AWESOME_SECRET.
             value (str): valor que será adicionado ao secret.
 
         Returns:
@@ -175,7 +175,7 @@ class SecretManagerClient:
         Caso essa varíavel seja apontada como um "json", é retornado um dict.
 
         Args:
-            secret (str): nome do secret no manager, ex: LEGALOPS_CLIENTS_ZOHO_VAULT.
+            secret (str): nome do secret no manager, ex: MY_AWESOME_SECRET.
             version (str): número da versão do secret, "latest" por padrão.
             project_id (str): ID do projeto, podendo ser o nome por extenso ou valor numérico.
             force_value_as_string (bool): flag indicando se o valor deve ser retornado como string.
@@ -224,7 +224,7 @@ class SecretManagerClient:
         """Habilita a versão do secret no GCP.
 
         Args:
-            secret (str): nome do secret no manager, ex: LEGALOPS_CLIENTS_ZOHO_VAULT.
+            secret (str): nome do secret no manager, ex: MY_AWESOME_SECRET.
             version (str): número da versão do secret, "latest" por padrão.
             project_id (str): ID do projeto, podendo ser o nome por extenso ou valor numérico.
 
@@ -252,7 +252,7 @@ class SecretManagerClient:
         """Desabilita a versão do secret no GCP.
 
         Args:
-            secret (str): nome do secret no manager, ex: LEGALOPS_CLIENTS_ZOHO_VAULT.
+            secret (str): nome do secret no manager, ex: MY_AWESOME_SECRET.
             version (str): número da versão do secret, "latest" por padrão.
             project_id (str): ID do projeto, podendo ser o nome por extenso ou valor numérico.
 
@@ -301,7 +301,7 @@ class SecretManagerClient:
         """Atualiza o valor do secret no GCP, adicionando uma nova versão do secret no Manager.
 
         Args:
-            secret (str): nome do secret no manager, ex: LEGALOPS_CLIENTS_ZOHO_VAULT.
+            secret (str): nome do secret no manager, ex: MY_AWESOME_SECRET.
             value (str | dict): valor que será adicionado a nova versão do secret.
             disable_latest_version (bool): flag indicando se deve desabilitar a última versão do secret.
             version (str): número da versão do secret, "latest" por padrão.
@@ -328,7 +328,7 @@ class SecretManagerClient:
         """Lista todas as versões de um secret.
 
         Args:
-            secret (str): nome do secret no manager, ex: LEGALOPS_CLIENTS_ZOHO_VAULT.
+            secret (str): nome do secret no manager, ex: MY_AWESOME_SECRET.
             project_id (str): ID do projeto, podendo ser o nome por extenso ou valor numérico.
         """
         parent = self._build_parent(secret, project_id)
@@ -346,7 +346,7 @@ class SecretManagerClient:
         """Retona a versão habilitada do secret de acordo com a ordenação no parâmetro `sorting`.
 
         Args:
-            secret (str): nome do secret no manager, ex: LEGALOPS_CLIENTS_ZOHO_VAULT.
+            secret (str): nome do secret no manager, ex: MY_AWESOME_SECRET.
             project_id (str): ID do projeto, podendo ser o nome por extenso ou valor numérico.
             sorting (SortingOrderEnum): formato que deverá retornar a ordenação das versões.
         """
