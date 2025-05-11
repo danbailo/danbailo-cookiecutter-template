@@ -77,7 +77,7 @@ def test_deprecated_decorator():
 
 
 def test_pickle_cache_decorator(tmp_path: Path):
-    file_path = tmp_path / 'test.pkl'
+    file_path = str(tmp_path / 'test.pkl')
 
     class TestClass:
         @pickle_cache(file_path)
@@ -101,7 +101,7 @@ def test_pickle_cache_decorator(tmp_path: Path):
 
 
 def test_pickle_cache_decorator_format_path(tmp_path: Path):
-    @pickle_cache(tmp_path / 'test_{year}_{day}.pkl')
+    @pickle_cache(str(tmp_path / 'test_{year}_{day}.pkl'))
     def day_of_year(year: int, day: int):
         return date(year, 1, 1) + timedelta(days=day - 1)
 

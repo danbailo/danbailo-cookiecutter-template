@@ -7,7 +7,9 @@ from pytest import mark
 from pytest_mock import MockerFixture
 from structlog.testing import capture_logs
 
-from {{cookiecutter.repository_name|lower|replace("-", "_")}}.utils.logger import LoggerFactory, LoggerNameEnum
+from {{cookiecutter.repository_name|lower|replace("-", "_")}}.utils.logger import Logger, LoggerFactory, LoggerNameEnum
+
+# TODO: improve tests
 
 
 def calling_loggers():
@@ -42,26 +44,26 @@ def test_logger_factory():
     LOGGER_NAME = os.getenv('LOGGER_NAME') or 'PROD'
 
     if LOGGER_NAME == 'PROD':
-        assert LoggerFactory.logger_name() == LoggerNameEnum.PROD
-        assert LoggerFactory.logger_level() == logging.INFO
-        for renderer in LoggerFactory.logger_renderer():
+        assert LoggerFactory.get_logger_name() == LoggerNameEnum.PROD
+        assert LoggerFactory.get_logger_level() == logging.INFO
+        for renderer in LoggerFactory.get_logger_renderer():
             assert isinstance(
                 renderer,
                 (structlog.processors.EventRenamer, structlog.processors.JSONRenderer),
             )
 
-        configs = LoggerFactory.logger_configs()
+        configs = LoggerFactory.get_logger_configs()
         assert configs['cache_logger_on_first_use'] is False
         assert configs['context_class'] is dict
         assert isinstance(configs['logger_factory'], structlog.PrintLoggerFactory)
         assert len(configs['processors']) == 8
 
     elif LOGGER_NAME == 'LOCAL':
-        assert LoggerFactory.logger_level() == logging.DEBUG
-        for renderer in LoggerFactory.logger_renderer():
+        assert LoggerFactory.get_logger_level() == logging.DEBUG
+        for renderer in LoggerFactory.get_logger_renderer():
             assert isinstance(renderer, structlog.dev.ConsoleRenderer)
 
-        configs = LoggerFactory.logger_configs()
+        configs = LoggerFactory.get_logger_configs()
         assert configs['cache_logger_on_first_use'] is False
         assert configs['context_class'] is dict
         assert isinstance(configs['logger_factory'], structlog.PrintLoggerFactory)
@@ -69,16 +71,6 @@ def test_logger_factory():
 
     else:
         raise Exception('LOGGER_NAME is different of `prod` or `local`')
-
-
-from unittest.mock import MagicMock, patch
-
-import structlog
-from pytest import mark
-from pytest_mock import MockerFixture
-from structlog.testing import capture_logs
-
-from {{cookiecutter.repository_name|lower|replace("-", "_")}}.utils.logger import Logger, LoggerFactory, LoggerNameEnum
 
 
 def _emulate_division_by_zero_error(logger: Logger):

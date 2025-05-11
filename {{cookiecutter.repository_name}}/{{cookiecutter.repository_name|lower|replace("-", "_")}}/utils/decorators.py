@@ -2,7 +2,7 @@ import asyncio
 import functools
 import inspect
 import os
-import pickle
+import pickle  # nosec: ignore[B403]
 import signal
 import time
 import warnings
@@ -122,7 +122,7 @@ def pickle_cache(file_path: str):
 
             if os.path.exists(file_path):
                 with open(file_path, 'rb') as f:
-                    cached_result: T = pickle.load(f)
+                    cached_result: T = pickle.load(f)  # nosec: ignore[B301]
                     return cached_result
 
             result = function(*args, **kwargs)

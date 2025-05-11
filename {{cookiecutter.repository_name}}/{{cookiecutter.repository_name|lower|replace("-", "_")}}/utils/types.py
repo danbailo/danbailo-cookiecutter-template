@@ -26,7 +26,7 @@ def cast_value(value: Any, types: list[type]) -> Any:
         try:
             cast_value = type_(value)
             return cast_value
-        except Exception:
+        except Exception:  # nosec: ignore[B112] 
             continue
 
     types_name = ', '.join([t.__name__ for t in types])

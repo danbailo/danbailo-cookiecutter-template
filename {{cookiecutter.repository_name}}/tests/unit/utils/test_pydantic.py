@@ -98,7 +98,7 @@ def test_validate_data_and_get_error_fields_parametrized(
         field4: str
 
         @model_validator(mode='before')
-        def validate_dependent_fields(cls, root: dict) -> dict:
+        def validate_dependent_fields(cls, root: dict) -> dict:  # type: ignore[misc]
             # Configuração necessária para rodar os testes e injetar valores parametrizados.
             root = force_all_keys_exist(root, *input_keys_to_validate)
             return root
@@ -125,7 +125,7 @@ def test_validate_data_and_get_error_fields_with_various_dependent_fields():
         field8: str
 
         @model_validator(mode='before')
-        def validate_dependent_fields(cls, root: dict) -> dict:
+        def validate_dependent_fields(cls, root: dict) -> dict:  # type: ignore[misc]
             root = force_all_keys_exist(root, 'field1', 'field2', 'field3')
             root = force_all_keys_exist(root, 'field3', 'field5')
             root = force_all_keys_exist(root, 'field7', 'field8')

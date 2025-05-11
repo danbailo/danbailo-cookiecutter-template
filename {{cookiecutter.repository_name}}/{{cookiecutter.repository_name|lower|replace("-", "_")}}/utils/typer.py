@@ -15,7 +15,7 @@ class DictTyper:
     @classmethod
     def parse_value(cls, value: Any) -> dict[Any, Any]:
         try:
-            to_return = eval(value)
+            to_return = eval(value)  # nosec: ignore[B307]
         except Exception:
             raise Exception(
                 f'Não foi possível converter o valor num objeto! - valor: {value}'

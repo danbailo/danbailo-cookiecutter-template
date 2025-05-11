@@ -4,8 +4,7 @@ from pydantic import BaseModel, ValidationError
 def get_fields_from_validation_error(validation_error: ValidationError) -> list[str]:
     errors: list[str] = []
     for error in validation_error.errors():
-        error_field: str = error['loc'][0]
-        errors.append(error_field)
+        errors.append(str(error['loc'][0]))
     return errors
 
 

@@ -1,5 +1,4 @@
 import json
-from pathlib import Path
 from sys import exit
 
 from google.api_core.exceptions import (
@@ -27,15 +26,13 @@ class SecretManagerClient:
 
     def __init__(
         self,
-        service_account: Path | str | None = None,
+        path_service_account: str | None = None,
         logger: Logger = LoggerFactory.new(),
     ):
         self.logger = logger
-        if service_account:
-            if isinstance(service_account, str):
-                service_account = Path(service_account)
+        if path_service_account:
             self.client = SecretManagerServiceClient.from_service_account_json(
-                service_account  # type: ignore[call-arg]
+                path_service_account  # type: ignore[arg-type, call-arg]
             )
         else:
             try:
@@ -130,22 +127,22 @@ class SecretManagerClient:
         except FailedPrecondition:
             raise SecretDisabledException(secret, version, project_id)
 
-        except PermissionDenied:
+        except PermissionDenied as exc:
             if raise_exc is False:
                 logger.debug(
                     'Renove seu token através do comando "gcloud auth application-default login" e tente novamente!',
                 )
-                return
-            raise
+                return None
+            raise exc
 
-        except Exception:
+        except Exception as exc:
             if raise_exc is False:
                 logger.warning(
                     'Não foi possível pegar o secret!',
                     exc_info=True,
                 )
-                return
-            raise
+                return None
+            raise exc
 
     def _add_version(self, secret: str, value: str) -> SecretVersion:
         """Adiciona uma nova versão ao secret.
@@ -170,7 +167,7 @@ class SecretManagerClient:
         project_id: str = 'digestojud',
         force_value_as_string: bool = False,
         raise_exc: bool = True,
-    ) -> str | dict:
+    ) -> str | dict | None:
         """Acessa o secret e retorna seu conteúdo. Por padrão, sempre irá apontar para
         a última versão do secret e se desejado, pode ser especificado a versão desse
         secret também, sendo a versão do secret um número como string.
@@ -197,7 +194,7 @@ class SecretManagerClient:
                 force_value_as_string=force_value_as_string,
                 raise_exc=raise_exc,
             )
-            return
+            return None
         value = response.payload.data.decode('UTF-8')
 
         if force_value_as_string is False:
@@ -271,7 +268,16 @@ class SecretManagerClient:
                 version=version,
                 project_id=project_id,
             )
-            return
+            return None
+        
+        if not response:
+            self.logger.warning(
+                'Secret não encontrado!',
+                secret=secret,
+                version=version,
+                project_id=project_id,
+            )
+            return None        
 
         secret_version = self.client.disable_secret_version(
             name=response.name, timeout=self.TIMEOUT
