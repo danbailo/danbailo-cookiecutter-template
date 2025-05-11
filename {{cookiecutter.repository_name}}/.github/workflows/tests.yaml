@@ -85,4 +85,15 @@ jobs:
         version: 5.0.0
 
     - name: Run kubernetes checks
-      run: make kubernetes_check        
+      run: make kubernetes_check
+
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v4
+
+    - name: Run docker build
+      run: make build
