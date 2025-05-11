@@ -47,8 +47,8 @@ class SecretManagerClient:
     def _build_name(
         self,
         secret: str,
+        project_id: str,
         version: str = 'latest',
-        project_id: str = 'digestojud',
     ) -> str:
         """Constrói o nome completo do secret como o manager o manipula no GCP.
 
@@ -62,7 +62,7 @@ class SecretManagerClient:
     def _build_parent(
         self,
         secret: str,
-        project_id: str = 'digestojud',
+        project_id: str,
     ) -> str:
         """Constrói o diretório do secret como o manager manipula no GCP.
 
@@ -74,7 +74,7 @@ class SecretManagerClient:
 
     def _build_project_parent(
         self,
-        project_id: str = 'digestojud',
+        project_id: str,
     ) -> str:
         """Constrói o diretório do projeto de como o manager manipula no GCP.
 
@@ -86,8 +86,8 @@ class SecretManagerClient:
     def _access_version(
         self,
         secret: str,
+        project_id: str,
         version: str = 'latest',
-        project_id: str = 'digestojud',
         raise_exc: bool = True,
     ) -> AccessSecretVersionResponse | None:
         """Constrói o nome completo do secret como o manager o manipula no GCP.
@@ -163,8 +163,8 @@ class SecretManagerClient:
     def get(
         self,
         secret: str,
+        project_id: str,
         version: str = 'latest',
-        project_id: str = 'digestojud',
         force_value_as_string: bool = False,
         raise_exc: bool = True,
     ) -> str | dict | None:
@@ -219,7 +219,7 @@ class SecretManagerClient:
         self,
         secret: str,
         version: str,
-        project_id: str = 'digestojud',
+        project_id: str,
     ) -> SecretVersion:
         """Habilita a versão do secret no GCP.
 
@@ -246,8 +246,8 @@ class SecretManagerClient:
     def disable(
         self,
         secret: str,
+        project_id: str,
         version: str = 'latest',
-        project_id: str = 'digestojud',
     ) -> SecretVersion | None:
         """Desabilita a versão do secret no GCP.
 
@@ -294,9 +294,9 @@ class SecretManagerClient:
         self,
         secret: str,
         value: str | dict,
+        project_id: str,
         disable_latest_version: bool = True,
         version: str = 'latest',
-        project_id: str = 'digestojud',
     ):
         """Atualiza o valor do secret no GCP, adicionando uma nova versão do secret no Manager.
 
@@ -323,7 +323,7 @@ class SecretManagerClient:
         )
 
     def list_versions(
-        self, secret: str, project_id: str = 'digestojud'
+        self, secret: str, project_id: str
     ) -> list[SecretVersionItem]:
         """Lista todas as versões de um secret.
 
@@ -340,7 +340,7 @@ class SecretManagerClient:
     def get_enabled_version(
         self,
         secret: str,
-        project_id: str = 'digestojud',
+        project_id: str,
         sorting: SortingOrderEnum = SortingOrderEnum.LATEST,
     ) -> SecretVersionItem | None:
         """Retona a versão habilitada do secret de acordo com a ordenação no parâmetro `sorting`.
@@ -360,8 +360,8 @@ class SecretManagerClient:
 
     def list(
         self,
-        filter: str = 'LEGALOPS',
-        project_id: str = 'digestojud',
+        filter: str,
+        project_id: str,
     ) -> list[str]:
         """Lista todas os secrets do GCP de acordo com o filtro indicado no parâmetro `filter`.
 
